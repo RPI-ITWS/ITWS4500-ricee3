@@ -1,6 +1,6 @@
 ## Lab 1
 
-News API USED - https://newsapi.org/ https://gnews.io/
+News API USED - https://newsapi.org/
 
 *Creativity* - 
 My creativity was to make a light and dark mode for my website, I decided to have the light 
