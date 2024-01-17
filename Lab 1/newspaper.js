@@ -24,7 +24,7 @@ function autoRefresh(categoryIndex) {
 }
 
 function refresh(category) {
-    var key = "6218fdfcabf142998e26775aa79ca7b7";
+    var key = "e3fbe2a60f9d49f9b99072a164a33e71";
     var api_call =
         "https://newsapi.org/v2/everything?q=" +
         category +
@@ -34,7 +34,7 @@ function refresh(category) {
     var article = fetchData(api_call);
 
     if (!article) {
-        key = "ClWgHs8tPfnVTp57qn7ew03GvroGwUHzZrQSbYiZ";
+        key = "e3fbe2a60f9d49f9b99072a164a33e71";
         api_call =
             "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
             key +
@@ -63,7 +63,7 @@ function fetchData(api_call) {
             article = data.articles[result];
         },
         error: function () {
-            key = "ClWgHs8tPfnVTp57qn7ew03GvroGwUHzZrQSbYiZ";
+            key = "e3fbe2a60f9d49f9b99072a164a33e71";
             api_call =
                 "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
                 key +
@@ -87,57 +87,46 @@ function fetchData(api_call) {
 }
 
 function displayArticle(article, category) {
-  // Extract data from the article object
-  var title = article.title;
-  var link = article.url;
-  var img = article.urlToImage;
-  var desc = article.description;
+    // Extract data from the article object
+    var title = article.title;
+    var link = article.url;
+    var img = article.urlToImage;
+    var desc = article.description;
 
-  // Build HTML for the article
-  img = "<img src='" + img + "' onerror=\"this.src='newspaper.png';\"/>";
-  title = "<span class='title'><a href='" + link + "'>" + title + "</a></span>";
-  desc = "<span class='desc'>" + desc + "</span>";
+    // Build HTML for the article
+    img = "<img src='" + img + "' onerror=\"this.src='newspaper.png';\"/>";
+    title = "<span class='title'><a href='" + link + "'>" + title + "</a></span>";
+    desc = "<span class='desc'>" + desc + "</span>";
 
-  // Display the article in the DOM
-  if ($("#" + category).length) {
-      $("#" + category).html(
-          "<div class='big-article'>" +
-          img +
-          "<div class='text'><span class='top'>" + title + "</span>" + desc + "</div></div>"
-      );
-  } else {
-      $("#articles").append(
-          "<div id='" +
-          category +
-          "' class='news'>" +
-          img +
-          "<div class='text'><span class='top'>" + title + "</span>" + desc + "</div></div>"
-      );
-  }
+    // Display the article in the DOM
+    if ($("#" + category).length) {
+        $("#" + category).html(
+            "<div class='big-article'>" +
+            img +
+            "<div class='text'><span class='top'>" + title + "</span>" + desc + "</div></div>"
+        );
+    } else {
+        $("#articles").append(
+            "<div id='" +
+            category +
+            "' class='news'>" +
+            img +
+            "<div class='text'><span class='top'>" + title + "</span>" + desc + "</div></div>"
+        );
+    }
+}
+
+// Function to toggle between light and dark mode
+function toggleMode() {
+    document.body.classList.toggle('dark-mode');
+    updateButtonText();
+}
+
+// Function to update the text of the mode toggle button
+function updateButtonText() {
+    var modeToggle = document.getElementById('modeToggle');
+    var currentMode = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
+    modeToggle.textContent = (currentMode === 'Dark Mode' ? 'Light Mode' : 'Dark Mode');
 }
 
 
-// Function to fetch live updates
-function fetchLiveUpdates() {
-  // Use AJAX or Fetch API to get live updates
-  // Update the ticker with the retrieved data
-  // Example:
-  var liveUpdates = ["Breaking News: [Your Update 1]", "Important Update: [Your Update 2]"];
-  updateTicker(liveUpdates);
-}
-
-// Function to update the ticker with live updates
-function updateTicker(updates) {
-  var ticker = document.getElementById("ticker");
-  ticker.innerHTML = ""; // Clear existing updates
-
-  updates.forEach(function (update) {
-      var li = document.createElement("li");
-      li.textContent = update;
-      ticker.appendChild(li);
-  });
-}
-
-// Call fetchLiveUpdates on page load or at regular intervals
-fetchLiveUpdates();
-setInterval(fetchLiveUpdates, 60000); // Update every 1 minute (adjust as needed)
