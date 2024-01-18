@@ -1,4 +1,4 @@
-var categories = ["sports", "food", "movies", "games", "business"];
+var categories = ["sports", "food", "movies", "science", "business"];
 var current = 0;
 
 $(document).ready(function () {
@@ -24,29 +24,19 @@ function autoRefresh(categoryIndex) {
 }
 
 function refresh(category) {
-    var key = "e3fbe2a60f9d49f9b99072a164a33e71";
+    var key = "WoGrTRBnXcBYRAkYFu7ShnqwdGAv53mh"; 
     var api_call =
-        "https://newsapi.org/v2/everything?q=" +
-        category +
-        "&apiKey=" +
-        key;
+        "https://api.nytimes.com/svc/topstories/v2/" + category + ".json?api-key=" + key;
 
     var article = fetchData(api_call);
 
     if (!article) {
-        key = "e3fbe2a60f9d49f9b99072a164a33e71";
-        api_call =
-            "https://api.newsapi.com/v1/news/all HTTP/2/api-token=" +
-            key +
-            "&categories=" +
-            category;
-
-        article = fetchData(api_call);
+        // Handle the case when the first API call fails
+        console.log("Failed to fetch data for category: " + category);
+        return;
     }
 
-    if (article) {
-        displayArticle(article, category);
-    }
+    displayArticle(article, category);
 }
 
 function fetchData(api_call) {
@@ -59,27 +49,11 @@ function fetchData(api_call) {
         url: api_call,
         async: false,
         success: function (data) {
-            result = Math.floor(Math.random() * data.articles.length);
-            article = data.articles[result];
+            result = Math.floor(Math.random() * data.results.length);
+            article = data.results[result];
         },
         error: function () {
-            key = "e3fbe2a60f9d49f9b99072a164a33e71";
-            api_call =
-                "https://newsapi.org/v2/everything?q=bitcoin&apiKey=e3fbe2a60f9d49f9b99072a164a33e71" +
-                key +
-                "&categories=" +
-                category;
-
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: api_call,
-                async: false,
-                success: function (data) {
-                    result = Math.floor(Math.random() * data.data.length);
-                    article = data.data[result];
-                }
-            });
+            console.log("Failed to fetch data from API: " + api_call);
         }
     });
 
@@ -90,8 +64,8 @@ function displayArticle(article, category) {
     // Extract data from the article object
     var title = article.title;
     var link = article.url;
-    var img = article.urlToImage;
-    var desc = article.description;
+    var img = article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'newspaper.png'; // Use a default image if not available
+    var desc = article.abstract;
 
     // Build HTML for the article
     img = "<img src='" + img + "' onerror=\"this.src='newspaper.png';\"/>";
@@ -128,5 +102,4 @@ function updateButtonText() {
     var currentMode = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
     modeToggle.textContent = (currentMode === 'Dark Mode' ? 'Light Mode' : 'Dark Mode');
 }
-
 
