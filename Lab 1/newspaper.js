@@ -57,27 +57,19 @@ function fetchData(api_call) {
         type: "GET",
         dataType: "json",
         url: api_call,
-        async: false,
         success: function (data) {
             result = Math.floor(Math.random() * data.articles.length);
             article = data.articles[result];
         },
         error: function () {
-            key = "e3fbe2a60f9d49f9b99072a164a33e71";
-            api_call =
-                "https://api.newsapi.com/v1/news/all HTTP/2/api-token=" +
-                key +
-                "&categories=" +
-                category;
-
+            // Attempt JSONP if regular AJAX fails
             $.ajax({
                 type: "GET",
-                dataType: "json",
+                dataType: "jsonp",
                 url: api_call,
-                async: false,
                 success: function (data) {
-                    result = Math.floor(Math.random() * data.data.length);
-                    article = data.data[result];
+                    result = Math.floor(Math.random() * data.articles.length);
+                    article = data.articles[result];
                 }
             });
         }
@@ -85,8 +77,6 @@ function fetchData(api_call) {
 
     return article;
 }
-
-
 
 function displayArticle(article, category) {
     // Extract data from the article object
