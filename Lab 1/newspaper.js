@@ -1,4 +1,4 @@
-var categories = ["sports", "food", "movies", "science", "business"];
+var categories = ["sports", "food", "movies", "business", "technology"];
 var current = 0;
 
 $(document).ready(function () {

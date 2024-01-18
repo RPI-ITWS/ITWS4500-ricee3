@@ -1,6 +1,6 @@
 ## Lab 1
 
-News API USED - https://newsapi.org/
+News API USED - https://developer.nytimes.com/apis
 
 *Creativity* - 
 My creativity was to make a light and dark mode for my website, I decided to have the light 
@@ -15,5 +15,14 @@ _SPECIFICATIONS_
     - Font: Times New Roman
 
 
+_OVERALL_
+First this assignment was a little annoying because I had everything all completed and 
+everything was working but I had an API that was able to be used unlimited amounts without paying. Until
+I went to my VM and it wasn't working on there, and I was super confused. Which, I then struggled to find me a good article to use
+until I went to see Dr. Callahan and someone in his office told me to use NewYorkTimes. After I got that then the rest was smooth.
+
+
+
 
 LINK TO MY WEBSITE - http://ricee3.eastus.cloudapp.azure.com/ITWS4500-ricee3/
+

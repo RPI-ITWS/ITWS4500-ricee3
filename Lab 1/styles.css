@@ -50,6 +50,17 @@ a:hover {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  background-color: #69c3ff; /* Blue background color */
+  color: #ffffff; /* White text color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#modeToggle:hover {
+  background-color: #2980b9; /* Darker blue on hover */
 }
 
 #articles {
@@ -74,7 +85,6 @@ a:hover {
   text-overflow: ellipsis; /* Truncate long text with an ellipsis */
   white-space: nowrap; /* Prevent wrapping of long text */
 }
-
 
 .big-article {
   border: 2px solid #000000;
@@ -144,18 +154,4 @@ body.dark-mode .navbar a {
 
 body.dark-mode .navbar-toggler-icon {
   background-color: #ffffff;
-}
-
-#modeToggle {
-  background-color: #69c3ff; /* Blue background color */
-  color: #ffffff; /* White text color */
-  padding: 5px 10px; /* Adjust padding as needed */
-  border: none;
-  border-radius: 5px; /* Add rounded corners */
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
-}
-
-#modeToggle:hover {
-  background-color: #2980b9; /* Darker blue on hover */
 }
