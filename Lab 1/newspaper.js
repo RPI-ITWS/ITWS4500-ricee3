@@ -1,4 +1,4 @@
-var categories = ["politics", "science", "sports", "food", "business"];
+var categories = ["sports", "food", "movies", "games", "business"];
 var current = 0;
 
 $(document).ready(function () {
@@ -24,45 +24,83 @@ function autoRefresh(categoryIndex) {
 }
 
 function refresh(category) {
-    var key = "e3fbe2a60f9d49f9b99072a164a33e71"; // Replace with your actual API key
+    var key = "e3fbe2a60f9d49f9b99072a164a33e71";
     var api_call =
         "https://newsapi.org/v2/everything?q=" +
         category +
         "&apiKey=" +
         key;
 
-    fetchData(api_call, category);
+    var article = fetchData(api_call);
+
+    if (!article) {
+        key = "e3fbe2a60f9d49f9b99072a164a33e71";
+        api_call =
+            "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
+            key +
+            "&categories=" +
+            category;
+
+        article = fetchData(api_call);
+    }
+
+    if (article) {
+        displayArticle(article, category);
+    }
 }
 
-function fetchData(api_call, category) {
+function fetchData(api_call) {
     var result = 0;
     var article;
 
     $.ajax({
         type: "GET",
-        dataType: "jsonp", // Use JSONP for cross-origin requests
+        dataType: "json",
         url: api_call,
+        async: false,
         success: function (data) {
             result = Math.floor(Math.random() * data.articles.length);
             article = data.articles[result];
-            displayArticle(article, category);
         },
-        error: function (xhr, status, error) {
-            console.error("Error fetching data:", error);
+        error: function () {
+            key = "e3fbe2a60f9d49f9b99072a164a33e71";
+            api_call =
+                "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
+                key +
+                "&categories=" +
+                category;
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: api_call,
+                async: false,
+                success: function (data) {
+                    result = Math.floor(Math.random() * data.data.length);
+                    article = data.data[result];
+                }
+            });
         }
     });
+
+    return article;
 }
 
+
+
 function displayArticle(article, category) {
+    // Extract data from the article object
     var title = article.title;
     var link = article.url;
     var img = article.urlToImage;
     var desc = article.description;
 
+    // Build HTML for the article
     img = "<img src='" + img + "' onerror=\"this.src='newspaper.png';\"/>";
     title = "<span class='title'><a href='" + link + "'>" + title + "</a></span>";
     desc = "<span class='desc'>" + desc + "</span>";
 
+    // Display the article in the DOM
     if ($("#" + category).length) {
         $("#" + category).html(
             "<div class='big-article'>" +

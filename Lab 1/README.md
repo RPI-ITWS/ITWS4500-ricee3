@@ -13,3 +13,7 @@ _SPECIFICATIONS_
     - How they cycle: Top article is the biggest and after a while it gets removing the articles below shift up one, adding a new article at the bottom
     - Additional styling: one big text box at the top, rest are smaller
     - Font: Times New Roman
+
+
+
+LINK TO MY WEBSITE - http://ricee3.eastus.cloudapp.azure.com/ITWS4500-ricee3/
