@@ -36,7 +36,7 @@ function refresh(category) {
     if (!article) {
         key = "e3fbe2a60f9d49f9b99072a164a33e71";
         api_call =
-            "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
+            "https://api.newsapi.com/v1/news/all HTTP/2/api-token=" +
             key +
             "&categories=" +
             category;
@@ -65,7 +65,7 @@ function fetchData(api_call) {
         error: function () {
             key = "e3fbe2a60f9d49f9b99072a164a33e71";
             api_call =
-                "https://api.thenewsapi.com/v1/news/all HTTP/2/api-token=" +
+                "https://api.newsapi.com/v1/news/all HTTP/2/api-token=" +
                 key +
                 "&categories=" +
                 category;
