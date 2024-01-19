@@ -102,4 +102,3 @@ function updateButtonText() {
     var currentMode = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
     modeToggle.textContent = (currentMode === 'Dark Mode' ? 'Light Mode' : 'Dark Mode');
 }
-
