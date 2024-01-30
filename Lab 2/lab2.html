@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Lab 2</title>
+
+    <style>
+        body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(182, 0, 0);
+}
+
+a:hover {
+  color: #470101;
+}
+
+.title {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1%;
+}
+
+.container-fluid {
+  background-color: #111111;
+}
+
+.navbar-brand {
+  color: rgb(255, 255, 255);
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 10px; /* Add padding to move text down */
+}
+
+#modeToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #69c3ff; /* Blue background color */
+  color: #ffffff; /* White text color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#slideshow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid #000000;
+    border-radius: 10px;
+
+}
+
+.mySlides {
+    width: 300px; /* Adjust the width as needed */
+    margin: 10px; /* Adjust the margin as needed */
+}
+
+.mySlides img {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+#modeToggle:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+body.dark-mode .container-fluid {
+  background-color: #b1b1b1;
+  color: #000000;
+}
+
+body.dark-mode #articles {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .news article {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .news article .title a {
+  color: #3498db;
+}
+
+body.dark-mode .big-article {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .big-article .title a {
+  color: #3498db;
+}
+
+body.dark-mode .navbar {
+  background-color: #1a1a1a;
+  color: #000000;
+}
+
+body.dark-mode .navbar a {
+  color: #000000;
+}
+
+body.dark-mode .navbar-toggler-icon {
+  background-color: #ffffff;
+}
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">News Ticker</a>
+            <!-- Add navigation links here -->
+    
+            <!-- Add this button inside your HTML body -->
+            <button id="modeToggle" onclick="toggleMode()">Toggle Dark/Light Mode</button>
+        </div>
+    </nav>
+    
+
+    <div class="slideshow-container" id="slideshow-container"></div>
+
+
+    <script>
+        var jsonData = [
+        {
+        "title": "Tue: Azrieli leads TASE lower",
+        "description": "Azrieli and Elbit Systems led the declines as Teva bucked the market.",
+        "url": "https://en.globes.co.il/en/article-tue-azrieli-leads-tase-lower-1001468470",
+        "image_url": "https://images.globes.co.il/images/NewGlobes/big_image_800/2018/Globes_Archive_800x392.2018729T150619.jpg",
+        "categories": ["general","business"]
+            
+        },
+        {
+          "title": "Netflix is paying $5 billion to be the home of WWE's Monday Night Raw",
+          "description": "Audiences love live sports, and the money is following them",
+          "url": "https://qz.com/netflix-is-paying-5-billion-to-be-the-home-of-wwes-mon-1851188480",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/4655637a938ad6a6701a90d1718709f4.jpg",
+          "categories": ["general","business","tech","entertainment"]
+        },
+        {
+          "title": "Phew! AI Won't Take Your Job Just Yet, MIT Data Finds — But There's A Caveat - Return Stacked Bonds & Managed Futures ETF Roundhill Generative AI & Technology ETF (ARCA:CHAT), Global X Robotics & Arti",
+          "description": "Researchers at MIT conclude that the fear of job displacement by AI may be exaggerated, as human labor is still cheaper in most cases.",
+          "url": "https://www.benzinga.com/news/24/01/36744236/phew-ai-wont-take-your-job-just-yet-mit-data-finds-but-theres-a-caveat",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2024/AI-CEO_0.png?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+        },
+        {
+          "title": "Most Americans want to be financially independent—here's how much money it will take",
+          "description": "The majority of Americans say reaching financial independence is important to them, but they could all have different definitions of what that means.",
+          "url": "https://www.cnbc.com/2024/01/23/how-much-money-americans-need-to-earn-to-be-financially-independent.html",
+          "image_url": "https://image.cnbcfm.com/api/v1/image/107361409-1705614120170-gettyimages-1405307124-riolifestyle-08445.jpeg?v=1705614448&w=1920&h=1080",
+          "categories": ["general","business"]
+        },
+        {
+        "uuid": "15aeb610-558e-43cb-a3f1-86cf5ddc3afc",
+        "title": "UK nuclear plant hit by new multi-year delay and could cost up to £35bn",
+        "description": "Latest overrun to Hinkley Point C a blow to UK energy plans and French constructor EDF",
+        "url": "https://www.ft.com/content/1157591c-d514-4520-aa17-158349203abd",
+        "image_url": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__origami%2Fservice%2Fimage%2Fv2%2Fimages%2Fraw%2Fhttps%253A%252F%252Fd1e00ek4ebabms.cloudfront.net%252Fproduction%252F79748849-8376-4f1c-bf29-7dd486c56893.jpg%3Fsource%3Dnext-article%26fit%3Dscale-down%26quality%3Dhighest%26width%3D700%26dpr%3D1?source=next-opengraph&fit=scale-down&width=900",
+        "categories": ["general", "business"]
+        },
+        {
+        "uuid": "c9d36531-065f-460b-b999-0d1b14732432",
+        "title": "Bank of Canada expected to hold interest rate steady, but tone could offer clues on cuts to come",
+        "description": "Bank of Canada is expected to hold its interest rate to start 2024, but economists will be watching for clues on future cuts.  Read more",
+        "url": "https://financialpost.com/news/economy/bank-of-canada-expected-to-hold-rate-steady",
+        "image_url": "https://smartcdn.gprod.postmedia.digital/financialpost/wp-content/uploads/2024/01/bank-of-canada-0123-ph.jpg",
+        "categories": ["business", "general"]
+        },
+        {
+        "uuid": "573c9bb8-85a4-4eed-8245-ae5aec76a0c6",
+        "title": "Tue: Azrieli leads TASE lower",
+        "description": "Azrieli and Elbit Systems led the declines as Teva bucked the market.",
+        "url": "https://en.globes.co.il/en/article-tue-azrieli-leads-tase-lower-1001468470",
+        "image_url": "https://images.globes.co.il/images/NewGlobes/big_image_800/2018/Globes_Archive_800x392.2018729T150619.jpg",
+        "categories": ["general", "business"]
+        },
+        {
+        "title": "UK nuclear plant hit by new multi-year delay and could cost up to £35bn",
+        "description": "Latest overrun to Hinkley Point C a blow to UK energy plans and French constructor EDF",
+        "url": "https://www.ft.com/content/1157591c-d514-4520-aa17-158349203abd",
+        "image_url": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__origami%2Fservice%2Fimage%2Fv2%2Fimages%2Fraw%2Fhttps%253A%252F%252Fd1e00ek4ebabms.cloudfront.net%252Fproduction%252F79748849-8376-4f1c-bf29-7dd486c56893.jpg%3Fsource%3Dnext-article%26fit%3Dscale-down%26quality%3Dhighest%26width%3D700%26dpr%3D1?source=next-opengraph&fit=scale-down&width=900",
+        "categories": ["general", "business"]
+        },
+        {
+        "title": "Bank of Canada expected to hold interest rate steady, but tone could offer clues on cuts to come",
+        "description": "Bank of Canada is expected to hold its interest rate to start 2024, but economists will be watching for clues on future cuts.  Read more",
+        "url": "https://financialpost.com/news/economy/bank-of-canada-expected-to-hold-rate-steady",
+        "image_url": "https://smartcdn.gprod.postmedia.digital/financialpost/wp-content/uploads/2024/01/bank-of-canada-0123-ph.jpg",
+        "categories": ["business", "general"]
+        },
+        {
+        "title": "I always book the interior cabins on cruises — and it's not because I'm cheap",
+        "description": "Many swear by ocean-view and balcony rooms on cruises. But after going on over 25 cruises, I don't think either is practical or worth the extra money.",
+        "url": "https://www.businessinsider.com/why-rooms-windows-balconies-not-worth-it-frequent-cruiser-2024",
+        "image_url": "https://i.insider.com/658d8fbeab6f2ebb11f75d3b?width=1200&format=jpeg",
+        "categories": ["business", "tech"]
+        },
+        {
+        "title": "Check Out What Whales Are Doing With WMT - Walmart (NYSE:WMT)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743951/check-out-what-whales-are-doing-with-wmt",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_0.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Looking At Spotify Technology's Recent Unusual Options Activity - Spotify Technology (NYSE:SPOT)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743947/looking-at-spotify-technologys-recent-unusual-options-activity",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_5.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Cytokinetics Unusual Options Activity For January 23 - Cytokinetics (NASDAQ:CYTK)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743945/cytokinetics-unusual-options-activity-for-january-23",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_5.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {     
+        "title": "You could win $10,000 if you're OK with keeping your smartphone locked away in a box for a month",
+        "description": "Yogurt brand Siggi's is giving 10 winners $10,000 each if they can give up their smartphones for a month for a digital detox. Here's how to enter.",
+        "url": "https://www.businessinsider.com/you-could-win-10000-to-ditch-phone-for-month-siggis-2024-1",
+        "image_url": "https://i.insider.com/65afe30043bb77284b9fb87c?width=1200&format=jpeg",
+        "categories": ["business", "tech"]
+        },
+        {
+        "title": "10 S&P 500 Stocks With Over 40% Upside Potential: Hidden Gems Or Value Traps? - Albemarle (NYSE:ALB), Aptiv (NYSE:APTV)",
+        "url": "https://www.benzinga.com/news/large-cap/24/01/36743883/10-s-p-500-stocks-with-over-40-upside-potential-hidden-gems-or-value-traps",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2024/Man-Business-Market-Shutterstock.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {     
+        "title": "Kimbal Musk 'felt the voice of God' twice in his life: during a near-death experience and when taking ayahuasca",
+        "url": "https://www.businessinsider.com/kimbal-musk-ayahuasca-comments-near-death-experience-god-2024-1",
+        "image_url": "https://i.insider.com/65afcf39617029e90a5f7872?width=1200&format=jpeg",
+        "categories": ["business", "tech"]
+        },
+        {
+        "title": "Dolly Parton says she didn't take a day off work for her 78th birthday: 'Nothing wrong with working on your birthday'",
+        "description": "Dolly Parton tells Business Insider that she worked on her birthday this year, but she still made time for some cake.",
+        "url": "https://www.businessinsider.com/dolly-parton-78th-birthday-working-snowed-in-chocolate-cake-2024-1",
+        "image_url": "https://i.insider.com/65b000a843bb77284b9fd0e2?width=1200&format=jpeg",
+        "categories": ["business", "tech"]
+        },
+        {     
+        "title": "Eli Lilly gene therapy allows child born deaf to hear, clinical trial shows",
+        "url": "https://www.marketwatch.com/story/eli-lilly-gene-therapy-allows-child-born-deaf-to-hear-clinical-trial-shows-e66d55be?mod=mw_rss_topstories",
+        "image_url": "https://images.mktw.net/im-735118/social",
+        "categories": ["business", "general"]
+        },
+        {
+        "title": "Nvidia Will Lead 2024 Double-Digit Semiconductor Stock Rally, Analysts Say Nvidia, Western Digital, ASML, NXP Semiconductors And GlobalFoundries Shine As Top Stock Picks For 2024: Analyst - Advanced M",
+        "url": "https://www.benzinga.com/analyst-ratings/analyst-color/24/01/36743662/nvidia-will-lead-2024-double-digit-semiconductor-stock-rally-analysts-say",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2024/semiconductor-shutter.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Best picture Oscar nominees 'Barbenheimer' account for 88% of the slate's box office haul",
+        "description": "The tag-team of \"Barbie\" and \"Oppenheimer\" represented 88% of the box office generated by best picture nominees prior to their nomination.",
+        "url": "https://www.cnbc.com/2024/01/23/oscars-2024-barbie-oppenheimer-best-picture-box-office.html",
+        "image_url": "https://image.cnbcfm.com/api/v1/image/107277256-1690395173203-gettyimages-1555745048-stamp-barbie.jpeg?v=1705956368&w=1920&h=1080",
+        "categories": ["general", "business"]
+        },
+        {
+        "title": "3,816 ETH Worth $8M Was Just Burned",
+        "url": "https://www.benzinga.com/insights/cryptocurrency/24/01/36743563/3-816-eth-worth-8m-was-just-burned",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/crypto_burns_image_0.png?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Behind the Scenes of Paramount Global's Latest Options Trends - Paramount Global (NASDAQ:PARA)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743391/behind-the-scenes-of-paramount-globals-latest-options-trends",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_1.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Wolfspeed's Options: A Look at What the Big Money is Thinking - Wolfspeed (NYSE:WOLF)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743389/wolfspeeds-options-a-look-at-what-the-big-money-is-thinking",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_1.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+        "title": "Check Out What Whales Are Doing With FDX - FedEx (NYSE:FDX)",
+        "url": "https://www.benzinga.com/insights/options/24/01/36743388/check-out-what-whales-are-doing-with-fdx",
+        "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_1.jpeg?width=1200&height=800&fit=crop",
+        "categories": ["business"]
+        },
+        {
+          "title": "Sex and the sea slugs. Indonesian boat-people invasion is more about sea cucumbers",
+          "description": "ABF apprehends the largest cohort of foreign fishers in over a decade. Not quite, just 30 Indonesian 'trepangers' - sea cucumber fishermen.",
+          "url": "https://michaelwest.com.au/indonesian-boat-people-scare-just-fishermen/",
+          "image_url": "https://michaelwest.com.au/wp-content/uploads/2024/01/Fishing-boats-in-Sulawesi-e1705911309874.jpg",
+          "categories": ["general","politics","business"],
+        },
+        {
+          "title": "U.S. stock-market earnings ‘unlikely to escape a slowdown unscathed’",
+          "description": "Investors in the U.S. stock market should “maintain a defensive posture,” as company earnings risk falling under “near-term pressure,” according to Well...",
+          "url": "https://www.marketwatch.com/story/u-s-stock-market-earnings-unlikely-to-escape-a-slowdown-unscathed-ddb317ca?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-406072/social",
+          "categories": ["business","general"],
+        },
+        {
+          "title": "Shares of SPAC buying Trump Media have more than tripled during record win streak",
+          "description": "The stock's rocket ride comes as Trump is set to take the next step toward winning the GOP nomination.",
+          "url": "https://www.marketwatch.com/story/shares-of-spac-buying-trump-media-have-more-than-tripled-during-record-win-streak-b612d90a?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-43997150/social",
+          "categories": ["business","general"],
+      },
+      {
+          "title": "AMC shares set to snap four-day losing streak after hitting record-low close",
+          "description": "AMC’s stock ended Thursday’s session at an all-time closing low of $4.08.",
+          "url": "https://www.marketwatch.com/story/amc-shares-set-to-snap-four-day-losing-streak-after-hitting-record-low-close-0a5d5a88?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-98702256/social",
+          "categories": ["business","general"],
+      },
+      {
+          "title": "Keeping an EV charged in extreme cold could increase your costs by 40%. Here’s how to lower your bills.",
+          "description": "Drivers can take steps to protect their electric vehicles from weather-related problems.",
+          "url": "https://www.marketwatch.com/story/keeping-an-ev-charged-in-extreme-cold-could-increase-your-costs-by-40-heres-how-to-lower-your-bills-f0dc7ca2?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-13508350/social",
+          "categories": [ "business","general"],
+      },
+      {
+          "title": "'The economy isn't sick right now,' economist says—here's why Americans still feel like it is",
+          "description": "Despite indicators that things are looking up, Americans remain pessimistic about the financial state of the country.",
+          "url": "https://www.cnbc.com/2024/01/26/the-economy-isnt-sick-right-now-but-americans-still-feel-like-it-is.html",
+          "image_url": "https://image.cnbcfm.com/api/v1/image/107312351-1696537435870-gettyimages-1403986369-dsc00210.jpeg?v=1706287140&w=1920&h=1080",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "Anxious about layoffs? A simple strategy can help you cope, says mental health pro: 'It takes less than 5 minutes'",
+          "description": "Living in fear of losing your job can be exhausting. Confronting your anxiety head-on is the best way to beat the panic, says one mental health pro.",
+          "url": "https://www.cnbc.com/2024/01/26/layoff-anxiety-simple-coping-strategy-from-mental-health-pro.html",
+          "image_url": "https://image.cnbcfm.com/api/v1/image/107365116-1706284420448-gettyimages-1215707769-pi-2035350.jpeg?v=1706284485&w=1920&h=1080",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "Why Intel Shares Are Trading Lower By Over 10%? Here Are Other Stocks Moving In Friday’s Mid-Day Session - AppFolio (NASDAQ:APPF), Aclarion (NASDAQ:ACON)",
+          "description": "Shares of Intel Corporation (NASDAQ: INTC) fell sharply during Friday’s session. Intel reported upbeat results for its fourth quarter, but issued a weak forec...",
+          "url": "https://www.benzinga.com/news/24/01/36806645/why-intel-shares-are-trading-lower-by-over-10-here-are-other-stocks-moving-in-fridays-mid-day-sessio",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2024/01/26/intel_-_logo_0.jpg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Abrdn cuts are deep in an industry feeling the pain",
+          "description": "Mid-size UK asset managers are suffering from rising regulatory costs and client outflows",
+          "url": "https://www.ft.com/content/a73b504b-a552-489b-beef-66813e2bd83c",
+          "image_url": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__origami%2Fservice%2Fimage%2Fv2%2Fimages%2Fraw%2Fhttps%253A%252F%252Fd1e00ek4ebabms.cloudfront.net%252Fproduction%252F11cb60d0-69c3-4a59-8ffb-f65e75e39f25.jpg%3Fsource%3Dnext-article%26fit%3Dscale-down%26quality%3Dhighest%26width%3D700%26dpr%3D1?source=next-opengraph&fit=scale-down&width=900",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "The S&P 500 hit another all-time high—but don't switch up your retirement saving strategy, says CFP",
+          "description": "You may have seen the value of your 401(k) rise as the S&P 500 reaches a new all-time high, but don't be tempted to increase your stock exposure. Here's why.",
+          "url": "https://www.cnbc.com/2024/01/26/what-sp-500s-all-time-high-means-for-your-retirement-fund.html",
+          "image_url": "https://image.cnbcfm.com/api/v1/image/107364143-1706138851413-gettyimages-1390714464-dsc_5977.jpeg?v=1706138868&w=1920&h=1080",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "Behind the Scenes of Micron Technology's Latest Options Trends - Micron Technology (NASDAQ:MU)",
+          "description": "",
+          "url": "https://www.benzinga.com/insights/options/24/01/36806317/behind-the-scenes-of-micron-technologys-latest-options-trends",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_0.jpeg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Novo Nordisk Options Trading: A Deep Dive into Market Sentiment - Novo Nordisk (NYSE:NVO)",
+          "description": "",
+          "url": "https://www.benzinga.com/insights/options/24/01/36806316/novo-nordisk-options-trading-a-deep-dive-into-market-sentiment",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_5.jpeg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "What the Options Market Tells Us About Walt Disney - Walt Disney (NYSE:DIS)",
+          "description": "",
+          "url": "https://www.benzinga.com/insights/options/24/01/36806315/what-the-options-market-tells-us-about-walt-disney",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_5.jpeg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Boosting civil society takes more than schmoozing the National Trust",
+          "description": "Starmer should consider more radical ideas, like allowing local people to run and design their own services",
+          "url": "https://www.ft.com/content/8565e988-e81f-4687-a11e-a28bcdfebca6",
+          "image_url": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__origami%2Fservice%2Fimage%2Fv2%2Fimages%2Fraw%2Fhttps%253A%252F%252Fd1e00ek4ebabms.cloudfront.net%252Fproduction%252F2fcff011-2caa-46d4-84e9-d22ab0c78663.jpg%3Fsource%3Dnext-article%26fit%3Dscale-down%26quality%3Dhighest%26width%3D700%26dpr%3D1?source=next-opengraph&fit=scale-down&width=900",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "5,155 ETH Worth $11M Was Just Burned",
+          "description": "What happened: On Thursday a total of 5,155.29 Ether (CRYPTO: ETH) worth $11,701,523, based on the current value of Ethereum at time of publication ($2,269.81),...",
+          "url": "https://www.benzinga.com/insights/cryptocurrency/24/01/36806300/5-155-eth-worth-11m-was-just-burned",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/crypto_burns_image_7.png?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Southwest, American, and Delta are feeling the impacts of Boeing's troubles",
+          "description": "Even if they don't have 737 Max 9s, airlines could face supply chain issues",
+          "url": "https://qz.com/southwest-american-and-delta-feel-the-impacts-of-boei-1851200829",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/87927b967b81ee8e61b078c1e5bea263.jpg",
+          "categories": ["general","business","tech","entertainment"],
+      },
+      {
+          "title": "Big Tech Announces Another Round of Job Cuts As It Continues Its Expensive Efforts To Turn GenAI Into Business Magic - Amazon.com (NASDAQ:AMZN)",
+          "description": "According to data from S&P Global Market Intelligence, Amazon.com Inc (NASDAQ: AMZN), Google-parent Alphabet (NASDAQ: GOOG)(NASDAQ: GOOGL), Microsoft Corpora...",
+          "url": "https://www.benzinga.com/24/01/36806233/big-tech-announces-another-round-of-job-cuts-as-it-continues-its-expensive-efforts-to-turn-genai-int",
+          "image_url": "https://cdn.benzinga.com/files/atom-hologram-background-showing-man-s-hand-science-technology-remix_2.jpg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Intel on pace for worst day since 2020 on weak outlook",
+          "description": "Intel's revenue guidance for the first quarter was below every analyst's estimate.",
+          "url": "https://www.cnbc.com/2024/01/26/intel-on-pace-for-worst-day-since-2020-on-weak-outlook-.html",
+          "image_url": "https://image.cnbcfm.com/api/v1/image/107347911-1702581189848-AP23348655407238.jpg?v=1702581346&w=1920&h=1080",
+          "categories": ["general","business"],
+      },
+      {
+          "title": "JetBlue casts doubt on its merger deal with Spirit Airlines",
+          "description": "International Business News: JPMorgan analysts state that JetBlue avoids a costly merger. The market value of Spirit's equity has dropped significantly. It is b...",
+          "url": "https://timesofindia.indiatimes.com/business/international-business/jetblue-casts-doubt-on-its-merger-deal-with-spirit-airlines/articleshow/107174704.cms",
+          "image_url": "https://static.toiimg.com/thumb/msid-107174713,width-1070,height-580,imgsize-886358,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+          "categories": ["business", "general"],
+      },
+      {
+          "title": "Stock investors pile into China equity funds in ‘world’s most enticing contrarian’ long trade",
+          "description": "Investors piled into equity funds focused on China after the country signaled stimulus measures in the wake of its property woes and beaten-down stock...",
+          "url": "https://www.marketwatch.com/story/stock-investors-pile-into-china-equity-funds-in-worlds-most-enticing-contrarian-long-trade-f02d56a1?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-85693654/social",
+          "categories": ["business","general"],
+      },
+      {
+          "title": "How Intel and Cisco are helping the NFL’s 49ers improve the fan experience",
+          "description": "At the NFC Championship game on Sunday, Silicon Valley tech will make sure fans have a ball.",
+          "url": "https://www.marketwatch.com/story/how-intel-and-cisco-are-helping-the-nfls-49ers-improve-the-fan-experience-ce0f74c5?mod=mw_rss_topstories",
+          "image_url": "https://images.mktw.net/im-04935276/social",
+          "categories": ["business","general"],
+      },
+      {
+          "title": "Bitcoin Halving Could Make 9 Of 11 Largest Public Miners Unprofitable, Analyst Says: Are Marathon Digital, Riot In Trouble?",
+          "description": "The Bitcoin (CRYPTO: BTC) Halving in April could make nine of the 11 largest publicly traded Bitcoin miners unprofitable at a Bitcoin price of $40,000, acco...",
+          "url": "https://www.benzinga.com/analyst-ratings/analyst-color/24/01/36800860/bitcoin-halving-could-make-9-of-11-largest-public-miners-unprofitable-analyst",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2024/01/26/bitcoin_crypto_winter.jpg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "This Is What Whales Are Betting On Newmont - Newmont (NYSE:NEM)",
+          "description": "",
+          "url": "https://www.benzinga.com/insights/options/24/01/36805636/this-is-what-whales-are-betting-on-newmont",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_18.jpeg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+      {
+          "title": "Decoding TJX Companies's Options Activity: What's the Big Picture? - TJX Companies (NYSE:TJX)",
+          "description": "",
+          "url": "https://www.benzinga.com/insights/options/24/01/36805631/decoding-tjx-companiess-options-activity-whats-the-big-picture",
+          "image_url": "https://cdn.benzinga.com/files/images/story/2023/movers_image_0.jpeg?width=1200&height=800&fit=crop",
+          "categories": ["business"],
+      },
+    ];
+
+var jsonData2 = [
+      {
+          "uuid": "773cc051-bff9-4131-8f5f-d7f79cd5285d",
+          "title": "Netflix is paying $5 billion to be the home of WWE's Monday Night Raw",
+          "description": "Audiences love live sports, and the money is following them",
+          "keywords": "WWE, Netflix, WWE Raw, the NFL, WrestleMania, WrestleMania 38, World Wrestling Entertainment, NFL, NBA games, USA Network, Sports, Amazon, NBCUniversal, Viacom, WrestleMania 37, warner bros, Formula 1, NBA, Quartz",
+          "snippet": "Once upon a time, the main proposition of streaming services like Netflix was that you could watch what you wanted, when you wanted. But as the services have in...",
+          "url": "https://qz.com/netflix-is-paying-5-billion-to-be-the-home-of-wwes-mon-1851188480",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/4655637a938ad6a6701a90d1718709f4.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T18:39:00.000000Z",
+          "source": "qz.com",
+          "categories": [
+              "general",
+              "business",
+              "tech",
+              "entertainment"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "93a46f1b-f6d6-4a7d-a424-9ed77152a520",
+          "title": "LG’s discounted C3 OLED TVs come with up to $200 in gift cards",
+          "description": "BuyDig is discounting LG’s C3 OLED TV while throwing in gift cards. We also found deals on the DreameBot D10 Plus and the Stream Deck XL.",
+          "keywords": "",
+          "snippet": "Super Bowl season traditionally brings with it steep discounts on last year’s TVs, and while it’s still some time away, the deals are starting to trickle in...",
+          "url": "https://www.theverge.com/2024/1/23/24045385/lg-c3-oled-tv-dreametech-d10-plus-deal-elgato-stream-deck-xl-deal-sale",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/wfLJJIzQprjhJ_ZhtGx325fy1pM=/0x0:2560x1637/1200x628/filters:focal(1280x819:1281x820)/cdn.vox-cdn.com/uploads/chorus_asset/file/24683793/LG_C3_OLED_Lifestyle_Image.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:22.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "2a32dccf-b4d3-492a-a410-839e3b928df3",
+          "title": "This baby is covered in old flip phones and chips — and you cannot afford it",
+          "description": "Daniel Roseberry’s Schiaparelli creations include a viral gadget-encrusted dress and baby doll created with CDs, flip phones, and motherboards.",
+          "keywords": "",
+          "snippet": "When normal people think of couture garments — the extravagant custom designs using all but extinct techniques, materials, and craftsmanship — they probably...",
+          "url": "https://www.theverge.com/2024/1/23/24047903/schiaparelli-couture-paris-fashion-week-robot-tech-baby-dress",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/kfdKM5_BLlii4EPdS6RpawvVf8Q=/0x0:1491x990/1200x628/filters:focal(1051x269:1052x270)/cdn.vox-cdn.com/uploads/chorus_asset/file/25243809/schiaparelli_HCSS24__65ae61b49fd3c_huge.jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:22.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "49117a6f-d446-44a8-a054-f637fc055a7a",
+          "title": "I always book the interior cabins on cruises — and it's not because I'm cheap",
+          "description": "Many swear by ocean-view and balcony rooms on cruises. But after going on over 25 cruises, I don't think either is practical or worth the extra money.",
+          "keywords": "",
+          "snippet": "By clicking “Sign Up”, you accept our Terms of Service and Privacy Policy . You can opt-out at any time.\n\nAccess your favorite topics in a personalized feed...",
+          "url": "https://www.businessinsider.com/why-rooms-windows-balconies-not-worth-it-frequent-cruiser-2024",
+          "image_url": "https://i.insider.com/658d8fbeab6f2ebb11f75d3b?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:00.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "0ad08036-867e-4e41-9f74-0a1876c55548",
+          "title": "You could win $10,000 if you're OK with keeping your smartphone locked away in a box for a month",
+          "description": "Yogurt brand Siggi's is giving 10 winners $10,000 each if they can give up their smartphones for a month for a digital detox. Here's how to enter.",
+          "keywords": "",
+          "snippet": "Could you give up your smartphone for a month?\n\nDairy brand Siggi's is giving a few lucky winners $10,000 if they can go without theirs for a month.\n\nThey'll lo...",
+          "url": "https://www.businessinsider.com/you-could-win-10000-to-ditch-phone-for-month-siggis-2024-1",
+          "image_url": "https://i.insider.com/65afe30043bb77284b9fb87c?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:12:55.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "00e8882e-f843-450e-94f7-aa4ae530144a",
+          "title": "Kimbal Musk 'felt the voice of God' twice in his life: during a near-death experience and when taking ayahuasca",
+          "description": "Kimbal Musk takes a slightly different stance on God than his older brother Elon Musk.",
+          "keywords": "",
+          "snippet": "By clicking “Sign Up”, you accept our Terms of Service and Privacy Policy . You can opt-out at any time.\n\nKimbal Musk takes a slightly different stance on G...",
+          "url": "https://www.businessinsider.com/kimbal-musk-ayahuasca-comments-near-death-experience-god-2024-1",
+          "image_url": "https://i.insider.com/65afcf39617029e90a5f7872?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:10:35.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "773cc051-bff9-4131-8f5f-d7f79cd5285d",
+          "title": "Netflix is paying $5 billion to be the home of WWE's Monday Night Raw",
+          "description": "Audiences love live sports, and the money is following them",
+          "keywords": "WWE, Netflix, WWE Raw, the NFL, WrestleMania, WrestleMania 38, World Wrestling Entertainment, NFL, NBA games, USA Network, Sports, Amazon, NBCUniversal, Viacom, WrestleMania 37, warner bros, Formula 1, NBA, Quartz",
+          "snippet": "Once upon a time, the main proposition of streaming services like Netflix was that you could watch what you wanted, when you wanted. But as the services have in...",
+          "url": "https://qz.com/netflix-is-paying-5-billion-to-be-the-home-of-wwes-mon-1851188480",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/4655637a938ad6a6701a90d1718709f4.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T18:39:00.000000Z",
+          "source": "qz.com",
+          "categories": [
+              "general",
+              "business",
+              "tech",
+              "entertainment"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "93a46f1b-f6d6-4a7d-a424-9ed77152a520",
+          "title": "LG’s discounted C3 OLED TVs come with up to $200 in gift cards",
+          "description": "BuyDig is discounting LG’s C3 OLED TV while throwing in gift cards. We also found deals on the DreameBot D10 Plus and the Stream Deck XL.",
+          "keywords": "",
+          "snippet": "Super Bowl season traditionally brings with it steep discounts on last year’s TVs, and while it’s still some time away, the deals are starting to trickle in...",
+          "url": "https://www.theverge.com/2024/1/23/24045385/lg-c3-oled-tv-dreametech-d10-plus-deal-elgato-stream-deck-xl-deal-sale",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/wfLJJIzQprjhJ_ZhtGx325fy1pM=/0x0:2560x1637/1200x628/filters:focal(1280x819:1281x820)/cdn.vox-cdn.com/uploads/chorus_asset/file/24683793/LG_C3_OLED_Lifestyle_Image.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:22.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "2a32dccf-b4d3-492a-a410-839e3b928df3",
+          "title": "This baby is covered in old flip phones and chips — and you cannot afford it",
+          "description": "Daniel Roseberry’s Schiaparelli creations include a viral gadget-encrusted dress and baby doll created with CDs, flip phones, and motherboards.",
+          "keywords": "",
+          "snippet": "When normal people think of couture garments — the extravagant custom designs using all but extinct techniques, materials, and craftsmanship — they probably...",
+          "url": "https://www.theverge.com/2024/1/23/24047903/schiaparelli-couture-paris-fashion-week-robot-tech-baby-dress",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/kfdKM5_BLlii4EPdS6RpawvVf8Q=/0x0:1491x990/1200x628/filters:focal(1051x269:1052x270)/cdn.vox-cdn.com/uploads/chorus_asset/file/25243809/schiaparelli_HCSS24__65ae61b49fd3c_huge.jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:22.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "49117a6f-d446-44a8-a054-f637fc055a7a",
+          "title": "I always book the interior cabins on cruises — and it's not because I'm cheap",
+          "description": "Many swear by ocean-view and balcony rooms on cruises. But after going on over 25 cruises, I don't think either is practical or worth the extra money.",
+          "keywords": "",
+          "snippet": "By clicking “Sign Up”, you accept our Terms of Service and Privacy Policy . You can opt-out at any time.\n\nAccess your favorite topics in a personalized feed...",
+          "url": "https://www.businessinsider.com/why-rooms-windows-balconies-not-worth-it-frequent-cruiser-2024",
+          "image_url": "https://i.insider.com/658d8fbeab6f2ebb11f75d3b?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:18:00.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "0ad08036-867e-4e41-9f74-0a1876c55548",
+          "title": "You could win $10,000 if you're OK with keeping your smartphone locked away in a box for a month",
+          "description": "Yogurt brand Siggi's is giving 10 winners $10,000 each if they can give up their smartphones for a month for a digital detox. Here's how to enter.",
+          "keywords": "",
+          "snippet": "Could you give up your smartphone for a month?\n\nDairy brand Siggi's is giving a few lucky winners $10,000 if they can go without theirs for a month.\n\nThey'll lo...",
+          "url": "https://www.businessinsider.com/you-could-win-10000-to-ditch-phone-for-month-siggis-2024-1",
+          "image_url": "https://i.insider.com/65afe30043bb77284b9fb87c?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:12:55.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "00e8882e-f843-450e-94f7-aa4ae530144a",
+          "title": "Kimbal Musk 'felt the voice of God' twice in his life: during a near-death experience and when taking ayahuasca",
+          "description": "Kimbal Musk takes a slightly different stance on God than his older brother Elon Musk.",
+          "keywords": "",
+          "snippet": "By clicking “Sign Up”, you accept our Terms of Service and Privacy Policy . You can opt-out at any time.\n\nKimbal Musk takes a slightly different stance on G...",
+          "url": "https://www.businessinsider.com/kimbal-musk-ayahuasca-comments-near-death-experience-god-2024-1",
+          "image_url": "https://i.insider.com/65afcf39617029e90a5f7872?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:10:35.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "ad934b16-fdb2-41e6-900f-0fcded7f9438",
+          "title": "Dolly Parton says she didn't take a day off work for her 78th birthday: 'Nothing wrong with working on your birthday'",
+          "description": "Dolly Parton tells Business Insider that she worked on her birthday this year, but she still made time for some cake.",
+          "keywords": "",
+          "snippet": "Dolly Parton celebrated her 78th birthday last week.\n\nParton tells Business Insider she decided to work on her birthday this year.\n\nHowever, the country legend ...",
+          "url": "https://www.businessinsider.com/dolly-parton-78th-birthday-working-snowed-in-chocolate-cake-2024-1",
+          "image_url": "https://i.insider.com/65b000a843bb77284b9fd0e2?width=1200&format=jpeg",
+          "language": "en",
+          "published_at": "2024-01-23T18:10:15.000000Z",
+          "source": "businessinsider.com",
+          "categories": [
+              "business",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "09f987bb-7887-4095-962a-146800749a98",
+          "title": "Coffee Briefing Jan. 23 – FedDev Ontario supports ventureLAB; Telus’s new plan for low-income seniors; Intuit says Canadians do not want financial advisors to be replaced by AI; and more",
+          "description": "Coffee Briefings are timely deliveries of the latest ITWC headlines, interviews, and podcasts. Today’s Coffee Briefing is delivered by IT World Canada’s edi...",
+          "keywords": "",
+          "snippet": "Coffee Briefings are timely deliveries of the latest ITWC headlines, interviews, and podcasts. Today’s Coffee Briefing is delivered by IT World Canada’s edi...",
+          "url": "https://www.itworldcanada.com/article/coffee-briefing-jan-23-feddev-ontario-supports-venturelab-teluss-new-plan-for-low-income-seniors-intuit-says-canadians-do-not-want-financial-advisors-to-be-replaced-by-ai-and-more/556949",
+          "image_url": "https://i.itworldcanada.com/wp-content/uploads/2022/02/coffee_briefing_2.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T17:57:10.000000Z",
+          "source": "itworldcanada.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "ca"
+      },
+      {
+          "uuid": "aee9b811-9476-45d6-aff0-76fc4f670bd5",
+          "title": "Taxes 2024: A Cheat Sheet to Filing Your Tax Return",
+          "description": "Use this guide to find all the answers you need for getting your taxes filed this year.",
+          "keywords": "",
+          "snippet": "In just under a week, the IRS will begin accepting tax returns, kicking off the 2024 tax season. If you plan to file as soon as possible, make sure you have all...",
+          "url": "https://www.cnet.com/personal-finance/taxes/taxes-2024-a-cheat-sheet-to-filing-your-tax-return/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/17d41e897098a64df498e54c95cd7d952fee7923/hub/2023/02/21/a764bccd-ac90-4386-8780-ba96d6ca0dd0/taxes-illustration-gettyimages-1147944011.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-23T17:15:03.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "60e195ce-826b-40ed-9831-8a31c80b005d",
+          "title": "Google is using AI to organize and customize your Chrome browser",
+          "description": "Google is integrating generative AI into the Chrome browser to automate tab groups, create custom themes, and have AI writing help in every text box on the web.",
+          "keywords": "",
+          "snippet": "Google’s Chrome browser is leaning into AI in a big way. Rather than just shove a Bard sidebar into the browser, Google is rolling out a couple of features th...",
+          "url": "https://www.theverge.com/2024/1/23/24047843/google-chrome-browser-ai-organize-tabs-themes",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/TxzhSqlyE8340PL8paQf_NrOtnQ=/0x0:2880x1920/1200x628/filters:focal(1440x960:1441x961)/cdn.vox-cdn.com/uploads/chorus_asset/file/25243595/ChromeAI.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T17:05:34.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "15cddc6b-d0a8-42d3-b352-995996a693f4",
+          "title": "22 Indian-origin scientists to take up collaborative research with institutes in country",
+          "description": "Science News: The government announced the Vaibhav fellowship for scientists of Indian origin to collaborate on research projects in areas such as electrical en...",
+          "keywords": "vaibhav, v k saraswat, sudhir dixit, karandikar, iit",
+          "snippet": "NEW DELHI: The government on Tuesday announced the Vaibhav fellowship to 22 scientists of Indian origin to take up collaborative research projects in leading in...",
+          "url": "https://timesofindia.indiatimes.com/home/science/22-indian-origin-scientists-to-take-up-collaborative-research-with-institutes-in-country/articleshow/107091462.cms",
+          "image_url": "https://static.toiimg.com/thumb/msid-107091599,width-1070,height-580,imgsize-459109,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T17:01:36.000000Z",
+          "source": "timesofindia.indiatimes.com",
+          "categories": [
+              "science",
+              "general",
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "d4e78385-7e11-480f-bebd-07f3ba350b36",
+          "title": "Chelsea vs. Middlesbrough Livestream: How to Watch Carabao Cup Soccer From Anywhere",
+          "description": "The Blues look to avoid a shock as they try to overturn a one-goal deficit at Stamford Bridge.",
+          "keywords": "",
+          "snippet": "The pressure is on English Premier League side Chelsea as they look to come back from a goal down against Championship outfit Middlesbrough in this Carabao Cup ...",
+          "url": "https://www.cnet.com/tech/services-and-software/chelsea-vs-middlesbrough-livestream-how-to-watch-carabao-cup-soccer-from-anywhere/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/b25be737b849d1a651c33fbc4a27450e93dd6ec4/hub/2024/01/23/40f72104-98ed-42fc-8233-f31ccf155d88/gettyimages-1835862361.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-23T17:00:04.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "c9def643-71bc-4bcb-8cdf-39150a8d5f79",
+          "title": "Starlink set to launch in India, challenging Reliance Jio and Airtel",
+          "description": "Starlink set to launch in India, challenging Reliance Jio and Airtel",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/starlink-set-to-launch-in-india-challenging-reliance-jio-and-airtel/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:40:42.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "c2dcf149-60c9-4503-b4ff-73bad962971d",
+          "title": "Trello and Loan Depot suffer data breaches impacting over 31 million users",
+          "description": "Trello and Loan Depot suffer data breaches impacting over 31 million users",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/trello-and-loan-depot-suffer-data-breaches-impacting-over-31-million-users/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:40:13.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "2bb83945-fb6d-4a94-aa62-bef46da30be7",
+          "title": "Apple Maps error labeling restaurant as ‘permanently closed’ negatively impacts sales, says owner",
+          "description": "Apple Maps error labeling restaurant as 'permanently closed' negatively impacts sales, says owner",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/apple-maps-error-labeling-restaurant-as-permanently-closed-negatively-impacts-sales-says-owner/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:39:25.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "79246fd0-e6a4-45f9-9b61-f376dbd1179c",
+          "title": "Apple TV+ receives 13 Oscar nominations for ‘Killers of the Flower Moon’ and ‘Napoleon’",
+          "description": "Apple TV+ receives 13 Oscar nominations for 'Killers of the Flower Moon' and 'Napoleon'",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/apple-tv-receives-13-oscar-nominations-for-killers-of-the-flower-moon-and-napoleon/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:37:43.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "5dc58f6d-2d3a-4a33-ac87-7578eecbeaa9",
+          "title": "Google Maps’ new feature identifies food items in restaurant photos",
+          "description": "Google Maps' new feature identifies food items in restaurant photos",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/google-maps-new-feature-identifies-food-items-in-restaurant-photos/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:37:18.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "798c180d-cd12-4bd5-8aeb-7768ced7f2a5",
+          "title": "Cult.fit, backed by Tata and Zomato, lays off 150 employees amid cost-cutting measures",
+          "description": "Cult.fit, backed by Tata and Zomato, lays off 150 employees amid cost-cutting measures",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/cult-fit-backed-by-tata-and-zomato-lays-off-150-employees-amid-cost-cutting-measures/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:37:14.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "d1536f5b-41e9-42ca-a59c-3461ae6fbb4c",
+          "title": "China’s chip imports decline as semiconductor machinery imports surge",
+          "description": "China's chip imports decline as semiconductor machinery imports surge",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/chinas-chip-imports-decline-as-semiconductor-machinery-imports-surge/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:37:04.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "b11b5865-537d-4b7d-9d5a-e0e43b5c1983",
+          "title": "Tech industry sees over 7,500 layoffs in early 2024",
+          "description": "Tech industry sees over 7,500 layoffs in early 2024",
+          "keywords": "",
+          "snippet": "A curated newsletter that summarizes the important news at the intersection of Global tech, India Tech and AI.\n\n\n\nDelivered 8 AM. Daily.",
+          "url": "https://nextbigwhat.com/tech-industry-sees-over-7500-layoffs-in-early-2024/",
+          "image_url": "https://i0.wp.com/nextbigwhat.com/wp-content/uploads/2023/03/nextbigwhat-social-media-logo.jpg?fit=1080%2C1080&ssl=1",
+          "language": "en",
+          "published_at": "2024-01-23T16:36:21.000000Z",
+          "source": "nextbigwhat.com",
+          "categories": [
+              "tech",
+              "business"
+          ],
+          "relevance_score": null,
+          "locale": "in"
+      },
+      {
+          "uuid": "e8d597d2-531d-4e2a-9c7b-768327339de3",
+          "title": "O2 UK Offer Network-First 48 Month Contract Option with Handsets",
+          "description": "Mobile operator O2 (Virgin Media) last week became the first operator to launch a 48-month contract option for customers who take one of the latest",
+          "keywords": "",
+          "snippet": "Tuesday, Jan 23rd, 2024 (4:09 pm) - Score 40\n\nMobile operator O2 (Virgin Media) last week became the first operator to launch a 48-month contract option for cus...",
+          "url": "https://www.ispreview.co.uk/index.php/2024/01/o2-uk-offer-network-first-48-month-contract-option-with-handsets.html",
+          "image_url": "https://www.ispreview.co.uk/wp-content/uploads/2021/06/nggallery_import/Virgin_Media_O2_VMO2_UK_Colourful_Logo_2021.jpg",
+          "language": "en",
+          "published_at": "2024-01-23T16:09:44.000000Z",
+          "source": "ispreview.co.uk",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "gb"
+      },
+      {
+          "uuid": "da0319de-75a5-474b-a506-ed03fbdd6f80",
+          "title": "Here’s the new Apple tax every developer is going to hate",
+          "description": "Apple has a new fee structure in the European Union for apps that want to escape the App Store. But the 50 cent fee can add up quickly and become a costly tax.",
+          "keywords": "",
+          "snippet": "Apple is finally opening the iPhone to third-party app stores in the European Union, kicking off a potentially vibrant, unwieldy, and eclectic new era for its a...",
+          "url": "https://www.theverge.com/2024/1/26/24051823/apple-third-party-app-stores-50-cent-fee",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/qKdCWJQesHoFeSnIlYc1aKGH5LA=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/24402139/STK071_apple_K_Radtke_03.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T18:43:39.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "c8a1a39e-86a2-43bc-9f7e-e0b7e6dde14a",
+          "title": "Dirty tricks or small wins: developers are skeptical of Apple’s App Store rules",
+          "description": "Apple will soon start letting users in the European Union sideload apps and download alternative app stores, however, the change also introduces limitations and...",
+          "keywords": "",
+          "snippet": "Apple is finally opening up the iPhone to sideloading and alternative app stores — at least in the European Union. It’s also allowing developers to use thir...",
+          "url": "https://www.theverge.com/24051818/apple-app-store-dma-eu-developer-response",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/EEBmDh6emjqUa-wKnQI-JyZ-7lQ=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23598986/VRG_Illo_5258_K_Radtke_WWDC.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T18:43:39.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "11717360-a7eb-44ea-abcc-5924d23a7669",
+          "title": "Monkey Man’s new trailer feels like a warning shot fired at John Wick",
+          "description": "Universal’s Monkey Man — out April 5th from director Dev Patel and producer Jordan Peele — looks like a stunning spin on the man in black (with a gun) gen...",
+          "keywords": "",
+          "snippet": "For the past few years, Lionsgate has dominated the stylish, hyper-choreographed, bullet-hole-ridden action-thriller genre with a steady stream of John Wick mov...",
+          "url": "https://www.theverge.com/24051748/monkey-man-trailer-universal-blumhouse-dev-patel-jordan-peele",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/XhffjyQFybN4JgT-668hQbDv5M0=/0x0:2878x1190/1200x628/filters:focal(1439x595:1440x596)/cdn.vox-cdn.com/uploads/chorus_asset/file/25250123/Screen_Shot_2024_01_26_at_12.04.38_PM.png",
+          "language": "en",
+          "published_at": "2024-01-26T18:17:49.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "15fb5d63-4f4a-4a56-8073-5f821bddcd64",
+          "title": "Watch FA Cup Soccer: Livestream Spurs vs. Man City From Anywhere",
+          "description": "The pick of this weekend's cup fixtures sees Ange Postecoglou and Pep Guardiola go head-to-head.",
+          "keywords": "",
+          "snippet": "The stand-out glamour tie of this season's fourth-round draw sees holders Manchester City travel to north London on Friday to take on Ange Postecoglou's Spurs.\n...",
+          "url": "https://www.cnet.com/tech/services-and-software/watch-fa-cup-soccer-livestream-spurs-vs-man-city-from-anywhere/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/887dd52408cefdff48d6fea7aa941699600c3d88/hub/2024/01/26/2e610d4d-5b7a-406f-b02d-62fc9e5009cb/gettyimages-1763230797.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T18:00:14.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "a4efda74-73bb-411a-b840-eafd4d19d38d",
+          "title": "Microsoft explains how Russian hackers spied on its executives",
+          "description": "Microsoft fell victim to a big security breach recently. The software maker has now started to explain how Russian hackers spied on its executives.",
+          "keywords": "",
+          "snippet": "Microsoft revealed last week that it had discovered a nation-state attack on its corporate systems from the Russian state-sponsored hackers that were behind the...",
+          "url": "https://www.theverge.com/2024/1/26/24051708/microsoft-hack-russian-security-attack-senior-leadership-emails",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/CCAiZOaSXBZ90QlUG4O76gDxwwc=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/24347780/STK095_Microsoft_04.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T17:59:22.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "0a126b66-954c-4cd0-93a1-f2889f35247b",
+          "title": "Southwest, American, and Delta are feeling the impacts of Boeing's troubles",
+          "description": "Even if they don't have 737 Max 9s, airlines could face supply chain issues",
+          "keywords": "Boeing, Federal Aviation Administration, Alaska Air Group, Max, Boeing 737, Alaska Airlines, In aviation, Reactions to the Boeing 737 MAX groundings, Disaster, Accident, Bob Jordan, Boeing Commercial Airplanes, Southwest Airlines, Business, Finance, Ed Bastian, airbus, Robert Isom, American Airlines, Delta Delta Air Lines, Boeing 737 MAX, United Airlines, Quartz",
+          "snippet": "It’s not just United Airlines and Alaska Airlines that were impacted by the grounding of Boeing’s 737 Max 9s. Delta, Southwest, and American have taken a gu...",
+          "url": "https://qz.com/southwest-american-and-delta-feel-the-impacts-of-boei-1851200829",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/87927b967b81ee8e61b078c1e5bea263.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T17:53:00.000000Z",
+          "source": "qz.com",
+          "categories": [
+              "general",
+              "business",
+              "tech",
+              "entertainment"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "bd10d355-b7dd-42a8-b457-446e813e7fc4",
+          "title": "Watch FA Cup Soccer: Livestream Chelsea vs. Aston Villa From Anywhere",
+          "description": "The Blues host the in-form Villans in a massive all-Premier League fourth-round tie.",
+          "keywords": "",
+          "snippet": "Having booked their place in the Carabao Cup final earlier this week, Chelsea will be hoping to take a step closer to making a second appearance at Wembley this...",
+          "url": "https://www.cnet.com/tech/services-and-software/watch-fa-cup-soccer-livestream-chelsea-vs-aston-villa-from-anywhere/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/cd5c38ecfa1a818f62eb226e362449b796d538e3/hub/2024/01/26/c712c9e9-a081-4a8c-8026-9d9ec1ae9f4d/gettyimages-1960266867.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T17:45:04.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "411d8c66-0aec-4cee-bbc1-708e91c9bd25",
+          "title": "The Pixel 8 Pro is one goofy way to take your temperature",
+          "description": "Google just rolled out body temperature scanning for the Pixel 8 Pro. Unfortunately, it’s fiddly to use, and you’re probably better off sticking to a regula...",
+          "keywords": "",
+          "snippet": "Earlier this week, Google updated the Pixel 8 Pro to let its strange new temperature sensor finally take readings of human bodies. I regret to inform you that, ...",
+          "url": "https://www.theverge.com/24051531/pixel-8-pro-body-temperature-thermometer-app",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/8oxBFfE3XJwRFerRvPOJmLprYWY=/0x0:2000x1306/1200x628/filters:focal(1000x653:1001x654)/cdn.vox-cdn.com/uploads/chorus_asset/file/24993391/DSC05741.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T17:25:03.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "9cbfebc7-92c8-42b9-a062-a8874b1fa282",
+          "title": "Stay Committed to Your Health in 2024 With 20% Off LifeStraw Pitchers and Dispensers",
+          "description": "Drink more water with the help of these stylish water pitchers that filter out contaminants.",
+          "keywords": "",
+          "snippet": "Staying hydrated may be the key to wellness, but if your water isn't safe or doesn't taste great, you'll be less inclined to sip. LifeStraw, the manufacturer of...",
+          "url": "https://www.cnet.com/deals/stay-committed-to-your-health-in-2024-with-20-off-lifestraw-pitchers-and-dispensers/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/8f503460c046343049a8fd7c3e3a98036773e4cc/hub/2024/01/26/5724d813-1e95-4a29-bca0-52dc0aca1640/lifestraw-home-pitchers.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T17:10:42.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "e35ebe36-2b11-498d-b5dd-7957405907a7",
+          "title": "Switch 2: all the news and rumors on Nintendo’s next console",
+          "description": "Nintendo’s next console is expected to launch in 2024 and has been called everything from the Switch 2 to the Switch Pro.",
+          "keywords": "",
+          "snippet": "The Nintendo Switch is going to be a tough act to follow. With more than 130 million units sold, the hybrid tablet has become the company’s bestselling consol...",
+          "url": "https://www.theverge.com/24051677/nintendo-switch-2-pro-rumors-news",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/7Uflx8VRONB3hPUdQKWxlOMYcvU=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/9537475/akrales_171025_2091_0010.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T17:07:23.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "fcc8711c-c99e-4207-839a-61f6234b21e1",
+          "title": "IO Interactive's 007 game will offer gameplay animations on a level \"yet unseen\"",
+          "description": "The Danish studio is increasing its efforts in the production of the title.",
+          "keywords": "",
+          "snippet": "HQ\n\nAs you might remember, the Danish developer IO Interactive is currently working on a yet-to-be-named James Bond game. While we don't have a lot of details a...",
+          "url": "https://www.gamereactor.eu/io-interactives-007-game-will-offer-gameplay-animations-on-a-level-yet-unseen-1351963/",
+          "image_url": "https://www.gamereactor.eu/media/35/_3313513b.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T17:03:00.000000Z",
+          "source": "gamereactor.eu",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "gb"
+      },
+      {
+          "uuid": "e6b8f3de-70a0-4aab-8ae8-67e6d041425e",
+          "title": "Elon Musk's AI startup is reportedly looking to raise up to $6 billion",
+          "description": "Will the added cash make us take xAI more seriously?",
+          "keywords": "Elon Musk, OPENAI, Artificial intelligence, OpenAI, Bret Taylor, Sequoia Capital, Business, Finance, Parag Agrawal, Twitter, Inc., crunchbase, XAI, Twitter, Grok, Salesforce, ChatGPT, Anthropic, Quartz",
+          "snippet": "Looks like Elon Musk is trying to mount a challenge to OpenAI—with some serious funding behind it. His competitor xAI is reportedly in talks to raise up to $6...",
+          "url": "https://qz.com/elon-musks-ai-startup-is-reportedly-looking-to-raise-up-1851200609",
+          "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/1e3b0a6c83a146ea9901be5df186961c.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T16:54:00.000000Z",
+          "source": "qz.com",
+          "categories": [
+              "general",
+              "business",
+              "tech",
+              "entertainment"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "4c981935-2bc0-4f8e-9cff-762efcd64018",
+          "title": "Jumpstart Your IT Career With This $65 2024 CompTIA Course Bundle Deal",
+          "description": "Get lifetime access to this CompTIA certification prep course with 262 hours of content to help you on your professional pathway.",
+          "keywords": "",
+          "snippet": "Does becoming a certified IT professional match your career goals? If the answer is yes and but you're still in the first stages of your journey, the Complete 2...",
+          "url": "https://www.cnet.com/deals/jumpstart-your-it-career-with-this-65-2024-comptia-course-bundle-deal/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/508c1b121443e9d27a01bd36b966ab6c5534d79d/hub/2023/11/09/c780d7f2-4d76-41f8-af7f-418114dbef96/artboard-3.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T16:37:00.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "706344d7-1cef-40ac-935c-eae25c330a22",
+          "title": "There are already Palworld-themed gaming PCs",
+          "description": "Four systems are available, each with a similar design.",
+          "keywords": "",
+          "snippet": "HQ\n\nIt has now been a week since Palworld made its debut as an Early Access title and during that time it has achieved remarkable success and even caught the at...",
+          "url": "https://www.gamereactor.eu/there-are-already-palworld-themed-gaming-pcs-1351893/",
+          "image_url": "https://www.gamereactor.eu/media/91/therearealready_4189113b.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T16:21:00.000000Z",
+          "source": "gamereactor.eu",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "gb"
+      },
+      {
+          "uuid": "42db7b16-3dc9-47ad-a57e-f53c7b466255",
+          "title": "The Best Exercises to Keep You Healthy as You Age, According to Experts",
+          "description": "It's a common myth that exercise isn't safe for older adults. Here's how to stay fit while avoiding injuries or issues.",
+          "keywords": "",
+          "snippet": "Exercise is one of the most beneficial things you can do for your health and wellness. No matter how many candles are on your cake, exercise only gets more impo...",
+          "url": "https://www.cnet.com/health/fitness/3-essential-exercises-to-keep-you-healthy-as-you-age-according-to-experts/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/8cad9e47e01d03038650b1da899ae9fdec13d84c/hub/2024/01/23/3ba9d26e-2703-4c74-b8a6-997991ba10b5/gettyimages-651388823.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T16:15:04.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "113582e5-a9c7-4d8b-ae2d-769b52bb8ee0",
+          "title": "The Biden administration will pause new gas export projects",
+          "description": "President Joe Biden announced a pause on new liquified natural gas export projects as his administration assesses their potential economic and environmental imp...",
+          "keywords": "",
+          "snippet": "The Biden administration announced a pause on new gas export projects today, saying it needs to better assess each project’s economic and environmental impact...",
+          "url": "https://www.theverge.com/2024/1/26/24051575/biden-gas-export-projects-pause",
+          "image_url": "https://cdn.vox-cdn.com/thumbor/5Rh7HlikmBhlw-NFhFz-Flca1js=/0x0:6000x4000/1200x628/filters:focal(3000x2000:3001x2001)/cdn.vox-cdn.com/uploads/chorus_asset/file/25249799/1243833137.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T16:13:27.000000Z",
+          "source": "theverge.com",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "25765280-f191-4129-92be-1b432aada2c7",
+          "title": "This Melatonin-Free Patch Is the Best Sleep Aid I've Tried -- and It's 45% Off Right Now",
+          "description": "For those who can't seem to stay asleep, Fleur Marche's all-natural sleep patches deliver a steady dose of valerian root and hops all night. Try them for 45% of...",
+          "keywords": "",
+          "snippet": "I'm a lifelong troubled sleeper. At some point, my issue shifted from falling asleep to staying asleep. The latter has been trickier to manage since I really ca...",
+          "url": "https://www.cnet.com/deals/this-melatonin-free-patch-is-the-best-sleep-aid-ive-tried-and-its-45-off-right-now/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/d238f9b6763704abc539df0e83c22509876848eb/hub/2024/01/26/a2da8611-ef1d-4a05-bd79-136032daf715/screenshot-2024-01-26-at-9-49-42am.png?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T16:05:00.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "82787025-6ab5-4248-8b63-626805ac5c1b",
+          "title": "Make Specialty Drinks Without Leaving the House With This $170 Nespresso Bundle",
+          "description": "This QVC deal is perfect for coffee lovers and includes the Nespresso Vertuo Next coffee and espresso maker, a milk frother, free coffee and a $50 Nespresso cre...",
+          "keywords": "",
+          "snippet": "Many of us need our coffee fix first thing. You can skip the hassle of heading to your local barista and spending an exorbitant amount of money on your daily br...",
+          "url": "https://www.cnet.com/deals/make-specialty-drinks-without-leaving-the-house-with-this-170-nespresso-bundle/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/18a522034d2349c55d276b2041ada5bf41860f86/hub/2024/01/12/340ad8e1-eaaf-4361-b269-126840eb0c82/artboard-1-3.png?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T15:40:38.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "c8198376-6fe4-4b7b-9b4c-d2f4a7fa6c3d",
+          "title": "Snag Discounted Samsung Galaxy Book 3 and 3 Pro Laptops Starting at $650",
+          "description": "Upgrade from your current PC at an affordable price with these deals on Samsung laptops at Amazon.",
+          "keywords": "",
+          "snippet": "If you're looking to upgrade your laptop but want to find a model that will work well without breaking the bank, consider the Samsung Galaxy Book 3 lineup. Sams...",
+          "url": "https://www.cnet.com/deals/snag-discounted-samsung-galaxy-book-3-and-3-pro-laptops-starting-at-650/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/adf13692dd0aa90776ba9561eeeedb4baf26961b/hub/2024/01/26/0de2c611-c4ad-4bda-ac84-84af33026d3c/artboard-8-1.png?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T15:38:00.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      },
+      {
+          "uuid": "2fc92389-bde5-48e7-b726-ad1d32c315d3",
+          "title": "The story of CD Projekt Red's Geralt of Rivia will continue in upcoming comic book series",
+          "description": "The Witcher: Corvo Bianco will explore the life of the monster-slayer after the events of Wild Hunt.",
+          "keywords": "",
+          "snippet": "HQ\n\nWe all know that CD Projekt Red's take on the world of The Witcher and the story of Geralt of Rivia saw the famed monster-slayer hanging up his steel and si...",
+          "url": "https://www.gamereactor.eu/the-story-of-cd-projekt-reds-geralt-of-rivia-will-continue-in-upcoming-comic-book-series-1351793/",
+          "image_url": "https://www.gamereactor.eu/media/89/storycdprojekt_4188933b.jpg",
+          "language": "en",
+          "published_at": "2024-01-26T15:11:00.000000Z",
+          "source": "gamereactor.eu",
+          "categories": [
+              "tech"
+          ],
+          "relevance_score": null,
+          "locale": "gb"
+      },
+      {
+          "uuid": "95af3c17-baa2-4418-bc04-af881293601d",
+          "title": "Honor Magic V2: One of the Most Compelling Foldables I've Ever Used",
+          "description": "The portable Magic V2 nudges foldable phones closer to the mainstream with its thin lightweight design and solid features.",
+          "keywords": "",
+          "snippet": "Honor's Magic V2 is one of the most compelling foldable phones I've ever used. From the lightweight design and bright, expansive displays to the respectable cam...",
+          "url": "https://www.cnet.com/tech/mobile/honor-magic-v2-one-of-the-most-compelling-foldables-ive-ever-used/#ftag=CAD590a51e",
+          "image_url": "https://www.cnet.com/a/img/resize/f855258f6541910f8614f2688d70ebd94651435a/hub/2024/01/26/a0b028e6-8b97-4be6-ae89-210b4547c0b7/magic-v2-2024-foldable-1426.jpg?auto=webp&fit=crop&height=675&width=1200",
+          "language": "en",
+          "published_at": "2024-01-26T15:00:00.000000Z",
+          "source": "cnet.com",
+          "categories": [
+              "tech",
+              "general"
+          ],
+          "relevance_score": null,
+          "locale": "us"
+      }
+    ];
+
+    function updateArticles(data) {
+            var slideshowContainer = document.getElementById('slideshow-container');
+
+            // Loop through each article in the data
+            data.forEach(function (article, index) {
+                // Create a new div element for each article
+                var articleDiv = document.createElement('div');
+                articleDiv.className = 'mySlides';
+
+                // Set the content of the div with the article information
+                articleDiv.innerHTML = '<h3>' + article.title + '</h3>' +
+                    '<img src="' + article.image_url + '" alt="' + article.title + '" style="max-width: 100%;">' +
+                    '<p>' + article.description + '</p>';
+
+                // Append the div to the slideshow container
+                slideshowContainer.appendChild(articleDiv);
+            });
+
+            // Start the slideshow
+            showSlides(0);
+        }
+
+        function showSlides(slideIndex) {
+            var slides = document.getElementsByClassName('mySlides');
+
+            // Hide all slides
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+
+            // Show the current slide
+            slides[slideIndex].style.display = 'block';
+
+            // Move to the next slide after 3 seconds
+            setTimeout(function () {
+                showSlides((slideIndex + 1) % slides.length);
+            }, 3000);
+        }
+
+        // Call the updateArticles function with your JSON data
+        updateArticles(jsonData);
+        
+
+        // Function to toggle between light and dark mode
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+            updateButtonText();
+        }
+
+        // Function to update the text of the mode toggle button
+        function updateButtonText() {
+        var modeToggle = document.getElementById('modeToggle');
+        var currentMode = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
+        modeToggle.textContent = (currentMode === 'Dark Mode' ? 'Light Mode' : 'Dark Mode');
+        }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <script src="lab2.js"></script>
+  
+    
+</body>
+  
+</html>
