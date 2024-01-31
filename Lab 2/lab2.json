@@ -4479,7 +4479,7 @@
           "locale": "in"
       }
     ],
-    "sports": [
+    ": [
       {
           "uuid": "42a58b47-b25a-464b-94ec-972cbd05a8f8",
           "title": "Kieran Trippier: Newcastle reject Bayern Munich offer for England right-back",
@@ -4498,7 +4498,7 @@
           "locale": "gb"
       },
       {
-          "uuid": "23ce2213-8b9f-4fdb-be2a-c24390d28d51",
+   "sports       "uuid": "23ce2213-8b9f-4fdb-be2a-c24390d28d51",
           "title": "Sir Dave Brailsford remains 'the Godfather' of Ineos Grenadiers, says new chief exec",
           "description": "Sir Dave Brailsford remains \"the Godfather\" of Ineos Grenadiers despite stepping aside as team principal says new boss John Allert.",
           "keywords": "",
