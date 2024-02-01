@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles.css">
-    <title>Lab 2</title>
-
-    <style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Lab 2</title>
+  <style>
         body {
             margin: 0;
             padding: 0;
@@ -192,48 +190,45 @@
         .mySlides {
             display: none;
         }
-    </style>
+  </style>
 </head>
-
 <body>
-
-    <nav class="navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><b>NEWS TICKER </b></a>
-  
-            <button id="modeToggle" onclick="toggleMode()">Toggle Dark/Light Mode</button>
-        </div>
-    </nav>
-
-
-    <div id="business-slideshow-container"></div>
-    <br>
-    <div id="food-slideshow-container"></div>
-    <br>
-    <div id="tech-slideshow-container"></div>
-    <br>
-    <div id="sports-slideshow-container"></div>
-    <br>
-    <div id="entertainment-slideshow-container"></div>
-
-    <script>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><b>NEWS TICKER</b></a> <button id="modeToggle" onclick="toggleMode()">Toggle Dark/Light Mode</button>
+    </div>
+  </nav>
+  <div id="business-slideshow-container"></div><br>
+  <div id="food-slideshow-container"></div><br>
+  <div id="tech-slideshow-container"></div><br>
+  <div id="sports-slideshow-container"></div><br>
+  <div id="entertainment-slideshow-container"></div>
+  <script>
     
-        function updateArticles(data, containerId) {
-            var slideshowContainer = document.getElementById(containerId);
+    function updateArticles(data, containerId) {
+    var slideshowContainer = document.getElementById(containerId);
 
-            data.forEach(function(article, index) {
-                var articleDiv = document.createElement('div');
-                articleDiv.className = 'mySlides';
+    data.forEach(function(article, index) {
+        var articleDiv = document.createElement('div');
+        articleDiv.className = 'mySlides';
 
-                articleDiv.innerHTML = '<h3>' + article.title + '</h3>' +
-                    '<img src="' + article.image_url + '" alt="' + article.title + '" style="max-width: 100%;">' +
-                    '<p>' + article.description + '</p>';
+        // Create a clickable link for the title
+        var titleLink = document.createElement('a');
+        titleLink.href = article.website_url; // Assuming there's a property named 'website_url' in the article data
+        titleLink.innerHTML = '<h3>' + article.title + '<\/h3>';
+        titleLink.target = '_blank'; // Open the link in a new tab/window
 
-                slideshowContainer.appendChild(articleDiv);
-            });
+        articleDiv.appendChild(titleLink);
 
-            showSlides(0, containerId);
-        }
+        // Include the image and description
+        articleDiv.innerHTML += '<img src="' + article.image_url + '" alt="' + article.title + '" style="max-width: 100%;">' +
+            '<p>' + article.description + '<\/p>';
+
+        slideshowContainer.appendChild(articleDiv);
+    });
+
+    showSlides(0, containerId);
+  }
 
         function showSlides(slideIndex, containerId) {
             var slides = document.getElementById(containerId).getElementsByClassName('mySlides');
@@ -250,21 +245,134 @@
         }
 
         // Sample data (replace with your actual data)
-        var businessData = [{
-                "title": "Tue: Azrieli leads TASE lower",
-                "description": "Azrieli and Elbit Systems led the declines as Teva bucked the market.",
-                "url": "https://en.globes.co.il/en/article-tue-azrieli-leads-tase-lower-1001468470",
-                "image_url": "https://images.globes.co.il/images/NewGlobes/big_image_800/2018/Globes_Archive_800x392.2018729T150619.jpg",
-                "categories": ["general", "business"]
-
-            },
-            {
-                "title": "Netflix is paying $5 billion to be the home of WWE's Monday Night Raw",
-                "description": "Audiences love live sports, and the money is following them",
-                "url": "https://qz.com/netflix-is-paying-5-billion-to-be-the-home-of-wwes-mon-1851188480",
-                "image_url": "https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/4655637a938ad6a6701a90d1718709f4.jpg",
-                "categories": ["general", "business", "tech", "entertainment"]
-            },
+        var businessData = [
+        {
+      "guid": "107367409",
+      "url": "https://www.cnbc.com/2024/02/01/peloton-pton-earnings-q2-2024.html",
+      "title": "Peloton shares plummet 24% as fitness company gives dismal outlook",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/107327243-1698864973814-gettyimages-1757875748-PELOTON_EARNS.jpeg?v=1706746507&w=740&h=416&ffmt=webp&vtcrop=y",
+      "description": "Peloton has made some progress in its turnaround plan, but the fitness company is expecting more dark days ahead after failing to reach a number of goals.",
+      "summary": "Peloton has made some progress in its turnaround plan, but the fitness company is expecting more dark days ahead after failing to reach a number of goals.",
+      "date_published": "2024-02-01T21:26:15.000Z"
+    },
+    {
+      "guid": "107367705",
+      "url": "https://www.cnbc.com/2024/02/01/amer-sports-ipo-wilson-tennis-racket-maker-to-trade-on-nyse.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107362287-1705926437356-gettyimages-1900663736-AMER_SPORTS_IPO.jpeg?v=1706805138&w=740&h=416&ffmt=webp&vtcrop=y",
+      "title": "Wilson tennis racket maker Amer Sports rises 3% in tepid market debut",
+      "description": "Amer Sports, the athletic company behind the Wilson tennis racket and Arc'teryx, debuted on the public markets Thursday after pricing its IPO at a discount.",
+      "summary": "Amer Sports, the athletic company behind the Wilson tennis racket and Arc'teryx, debuted on the public markets Thursday after pricing its IPO at a discount.",
+      "date_published": "2024-02-01T21:42:18.000Z"
+    },
+    {
+      "guid": "107367625",
+      "url": "https://www.cnbc.com/2024/02/01/ferrari-race-q4-2023-earnings.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107340827-1701283876484-IMG_8310.jpg?v=1706803344&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Ferrari finishes a record year by topping Wall Street's estimates",
+      "description": "The automaker reported a net profit of 1.26 billion euros, or $1.36 billion, for 2023, including 294 million euros, or $317.9 million, in the fourth quarter.",
+      "summary": "The automaker reported a net profit of 1.26 billion euros, or $1.36 billion, for 2023, including 294 million euros, or $317.9 million, in the fourth quarter.",
+      "date_published": "2024-02-01T21:37:06.000Z"
+    },
+    {
+      "guid": "107367356",
+      "url": "https://www.cnbc.com/2024/02/01/lululemon-to-launch-first-mens-footwear-line.html",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/107355329-1704719103435-gettyimages-1243579334-BC_Lululemon_4652.jpeg?v=1706737244&w=740&h=416&ffmt=webp&vtcrop=y",
+      "title": "Lululemon to launch first men's footwear line as it chases growth in crowded athletic apparel space",
+      "description": "Lululemon is launching its first men's footwear line as the retailer looks for new avenues of growth in the increasingly crowded athletic apparel space.",
+      "summary": "Lululemon is launching its first men's footwear line as the retailer looks for new avenues of growth in the increasingly crowded athletic apparel space.",
+      "date_published": "2024-02-01T14:30:01.000Z"
+    },
+    {
+      "guid": "107367189",
+      "url": "https://www.cnbc.com/2024/02/01/small-business-optimism-rises-despite-inflation-goldman-sachs-survey.html",
+      "title": "Main Street is more optimistic this year even as inflation persists, survey says",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107233501-1682962971516-gettyimages-1486868177-109a5906_2bnytc7i.jpeg?v=1682963028&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Small business optimism is rising, and owners are feeling better about the economy, even as inflation continues to pose challenges, the survey found.",
+      "summary": "Small business optimism is rising, and owners are feeling better about the economy, even as inflation continues to pose challenges, the survey found.",
+      "date_published": "2024-02-01T17:00:01.000Z"
+    },
+    {
+      "guid": "107367473",
+      "url": "https://www.cnbc.com/2024/02/01/merck-mrk-q4-earnings-report-2023.html",
+      "title": "Merck results beat expectations as top drugs Keytruda, Gardasil post strong sales",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107364710-17062139992021-11-18t014239z_377529114_rc2hwq9kgx1y_rtrmadp_0_merck-co-results.jpeg?v=1706214040&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Merck still posted a quarterly loss due to previously announced charges associated with its cancer drug collaboration deal with Daiichi Sankyo.",
+      "summary": "Merck still posted a quarterly loss due to previously announced charges associated with its cancer drug collaboration deal with Daiichi Sankyo.",
+      "date_published": "2024-02-01T21:13:25.000Z"
+    },
+    {
+      "guid": "107366967",
+      "url": "https://www.cnbc.com/2024/01/31/paramount-bidder-byron-allen-has-long-history-of-failed-media-bids-.html",
+      "title": "Byron Allen, offering $14 billion for Paramount, has a long history of media bids that haven't materialized",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107054731-1651516830470-gettyimages-1240401831-AFP_329D2GU.jpeg?v=1706726043&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Allen previously explored deals to buy ABC, television station operator Tegna and the National Football League's Washington Commanders.",
+      "summary": "Allen previously explored deals to buy ABC, television station operator Tegna and the National Football League's Washington Commanders.",
+      "date_published": "2024-01-31T21:38:13.000Z"
+    },
+    {
+      "guid": "107366954",
+      "url": "https://www.cnbc.com/2024/01/31/pga-tour-secures-up-to-3-billion-us-investment-amid-liv-golf-merger.html",
+      "title": "PGA Tour secures up to $3 billion from U.S. investors as LIV Golf merger hangs in the balance",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107086966-1657559566784-gettyimages-803032472-482170624120_Travelers_Third_Round.jpeg?v=1695935786&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Strategic Sports Group's investment in the PGA Tour comes as the professional golf organization's merger with the Saudi-backed LIV Golf is up in the air.",
+      "summary": "Strategic Sports Group's investment in the PGA Tour comes as the professional golf organization's merger with the Saudi-backed LIV Golf is up in the air.",
+      "date_published": "2024-01-31T19:27:28.000Z"
+    },
+    {
+      "guid": "107367209",
+      "url": "https://www.cnbc.com/2024/01/31/adidas-will-not-write-off-remaining-yeezy-inventory.html",
+      "title": "Adidas won't write off remaining Yeezy inventory, plans to sell ‘at least’ at cost",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/107193029-1676064001780-gettyimages-1464821222-dsc03698_171ac533-87ce-46bb-9163-963b8a680a38.jpeg?v=1706727820&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Adidas won't write off the majority of its unsold Yeezy inventory after its breakup with Ye, the rapper formerly known as Kanye West, over antisemitism.",
+      "summary": "Adidas won't write off the majority of its unsold Yeezy inventory after its breakup with Ye, the rapper formerly known as Kanye West, over antisemitism.",
+      "date_published": "2024-01-31T19:08:52.000Z"
+    },
+    {
+      "guid": "107366971",
+      "url": "https://www.cnbc.com/2024/01/31/walmart-plans-to-add-150-more-stores-across-us.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107356638-1706718386900-107356638-1704893515399-gettyimages-1920821231-em035527_2024010942706714.jpg?v=1706718398&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Walmart plans to add more than 150 large-format stores across the U.S.",
+      "description": "Walmart already has a massive footprint, with more than 4,600 stores across the country.",
+      "summary": "Walmart already has a massive footprint, with more than 4,600 stores across the country.",
+      "date_published": "2024-01-31T17:04:53.000Z"
+    },
+    {
+      "guid": "107366950",
+      "url": "https://www.cnbc.com/2024/01/31/starbucks-weak-earnings-report-wall-street-expected-worse.html",
+      "title": "Starbucks' earnings report was weak — but Wall Street expected worse",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107366474-1706713872437-107366474-1706635968708-gettyimages-1972997996-starbuck259350_l0vpfp3r.jpg?v=1706713888&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Starbucks executives said the challenges faced by the company are \"transitory.\"",
+      "summary": "Starbucks executives said the challenges faced by the company are \"transitory.\"",
+      "date_published": "2024-01-31T21:10:19.000Z"
+    },
+    {
+      "guid": "107367024",
+      "url": "https://www.cnbc.com/2024/01/31/biogen-drops-alzheimers-drug-aduhelm-to-focus-on-leqembi-others.html",
+      "title": "Biogen drops controversial Alzheimer's drug Aduhelm to focus on Leqembi, experimental treatments",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/107322509-1698173836270-gettyimages-1742678123-BIOGEN_EARNS.jpeg?v=1706721845&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Biogen said its decision to drop Aduhelm, which had a polarizing approval and launch, was \"not related to any safety or efficacy concerns.\"",
+      "summary": "Biogen said its decision to drop Aduhelm, which had a polarizing approval and launch, was \"not related to any safety or efficacy concerns.\"",
+      "date_published": "2024-01-31T17:24:53.000Z"
+    },
+    {
+      "guid": "107366391",
+      "url": "https://www.cnbc.com/2024/01/31/studios-rethink-streaming-strategy-amid-wall-street-profitability-push.html",
+      "title": "To stream or not to stream: Hollywood studios could send more films to the big screen as Wall Street pushes for profits",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107358754-1705247045460-the_plastics_Cropped.jpg?v=1705247232&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "Hollywood studios may release more mid-budget films in theaters as Wall Street pushes for profitability not subscriber growth.",
+      "summary": "Hollywood studios may release more mid-budget films in theaters as Wall Street pushes for profitability not subscriber growth.",
+      "date_published": "2024-01-31T13:08:16.000Z"
+    },
+    {
+      "guid": "107366964",
+      "url": "https://www.cnbc.com/2024/01/31/gsk-posts-blowout-rsv-vaccine-sales-raises-outlook.html",
+      "title": "GSK posts blowout RSV vaccine sales, raises outlook as shots give big pharma a boost",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107364700-17062137262022-08-10t145234z_887399430_rc2otv9psyin_rtrmadp_0_gsk-results.jpeg?v=1706213775&w=929&h=523&ffmt=webp&vtcrop=y",
+      "description": "The RSV shot, called Arexvy, booked £1.2 billion, or $1.5 billion, in sales after only being on the market for roughly half a year.",
+      "summary": "The RSV shot, called Arexvy, booked £1.2 billion, or $1.5 billion, in sales after only being on the market for roughly half a year.",
+      "date_published": "2024-01-31T16:38:47.000Z"
+    },
+    
             {
                 "title": "Phew! AI Won't Take Your Job Just Yet, MIT Data Finds — But There's A Caveat - Return Stacked Bonds & Managed Futures ETF Roundhill Generative AI & Technology ETF (ARCA:CHAT), Global X Robotics & Arti",
                 "description": "Researchers at MIT conclude that the fear of job displacement by AI may be exaggerated, as human labor is still cheaper in most cases.",
@@ -580,7 +688,69 @@
                 "categories": ["business"],
             }
         ];
-        var foodData = [{
+        var foodData = [     
+
+        {
+      "guid": "65b96c76468eb55d5767ba9a",
+      "url": "https://www.bonappetit.com/story/restaurant-prices-diner-behavior",
+      "image_url": "https://assets.bonappetit.com/photos/65ba7d3ef757062805fb4e76/16:9/w_1600,c_limit/BA_Restaurants_expensive.jpg",
+      "title": "High Restaurant Prices Kill the Joy of Trying New Places",
+      "description": "Diners are happy to pay higher bills at their favorite restaurants. But for many, buzzy new restaurants are not worth the cost anymore.",
+      "summary": "Diners are happy to pay higher bills at their favorite restaurants. But for many, buzzy new restaurants are not worth the cost anymore.",
+      "date_published": "2024-02-01T13:00:00.000Z",
+      "author": {
+        "name": "Meghan McCarron"
+      }
+    },
+    {
+      "guid": "65b130de6319c75f4dd065cf",
+      "url": "https://www.bonappetit.com/story/james-beard-foundation-restaurant-chef-awards-semifinalists-2024",
+      "image_url": "https://assets.bonappetit.com/photos/65b1302c68760f2e349e159a/16:9/w_1600,c_limit/%C2%A92022JamesVitullo-28.jpeg",
+      "title": "These Are the James Beard Awards Restaurant and Chef Semifinalists, 2024",
+      "description": "Finalists for the prestigious awards will be announced in April, followed by a June announcement of the winners.",
+      "summary": "Finalists for the prestigious awards will be announced in April, followed by a June announcement of the winners.",
+      "date_published": "2024-01-24T17:02:12.000Z",
+      "author": {
+        "name": "Li Goldstein"
+      }
+    },
+    {
+      "guid": "65aab0e168a78d6513f15f81",
+      "url": "https://www.bonappetit.com/story/keith-lee-food-critic-restaurants",
+      "image_url": "https://assets.bonappetit.com/photos/65aacdd057497f36fb5b4aa7/16:9/w_1600,c_limit/GettyImages-1504994012.jpeg",
+      "title": "How Food Critic Keith Lee Can Change a Restaurant's Fortunes",
+      "description": "From social media stardom to massive surges in business, here’s how the viral food critic changed five restaurants’ trajectories.",
+      "summary": "From social media stardom to massive surges in business, here’s how the viral food critic changed five restaurants’ trajectories.",
+      "date_published": "2024-01-19T20:19:42.000Z",
+      "author": {
+        "name": "Sam Stone"
+      }
+    },
+    {
+      "guid": "65a7f7e60786ab9e5ca86bf2",
+      "image_url": "https://assets.bonappetit.com/photos/65a8262220d437e5abada5bd/16:9/w_1600,c_limit/Datsu%20Films%20-%20Magna-39.jpeg",
+      "url": "https://www.bonappetit.com/story/most-anticipated-restaurant-openings-2024",
+      "title": "The 9 Most Anticipated Restaurant Openings of 2024",
+      "description": "A celebrated Atlanta chef expands, a Liberian pop-up in Detroit gets a permanent space, one of New Orleans’s best chefs sets out on her own, and so much more to look forward to this year.",
+      "summary": "A celebrated Atlanta chef expands, a Liberian pop-up in Detroit gets a permanent space, one of New Orleans’s best chefs sets out on her own, and so much more to look forward to this year.",
+      "date_published": "2024-01-17T20:54:27.000Z",
+      "author": {
+        "name": "Kate Kassin"
+      }
+    },
+    {
+      "guid": "659d719e07e73072ddb39831",
+      "image_url": "https://assets.bonappetit.com/photos/659f01c2f174b9b6f55d3bb4/16:9/w_1600,c_limit/PalestinianChefs31.jpg",
+      "url": "https://www.bonappetit.com/story/palestinian-chefs-america-talk-identity",
+      "title": "Five Palestinian Chefs on How Identity Shapes Their Restaurants",
+      "description": "In their own words, five Palestinian chefs across the US speak of the pride, challenges, and community that their cooking represents.",
+      "summary": "In their own words, five Palestinian chefs across the US speak of the pride, challenges, and community that their cooking represents.",
+      "date_published": "2024-01-11T16:53:13.000Z",
+      "author": {
+        "name": "Elena Dudum"
+      }
+    },
+        {
                 "uuid": "0a1975ec-cc59-4b44-9d38-6fa28d26f520",
                 "title": "Sheet Pan Frittata",
                 "description": "I have over 45 chickens right now, with two roosters. Only half are laying at present, but that still equates to many eggs daily. As a rule, I am not a breakfas...",
@@ -684,77 +854,6 @@
                 ],
                 "relevance_score": null,
                 "locale": "it"
-            },
-            {
-                "uuid": "637a986f-0234-41ca-b18f-e435a8abef0e",
-                "title": "Spicy stir-fried pork and kimchi",
-                "description": "Happy 2024! Tonight's maangchi dinner was Spicy stir-fried pork and kimchi ( Dwaeji-kimchi duruchigi : 돼지김치 두루치기) served with steamed eggplant, ...",
-                "keywords": "",
-                "snippet": "Which to get? Both are best sellers and either one is a good choice if you want to learn Korean home cooking. Maangchi's Real Korean Cooking (Amazon) has all th...",
-                "url": "https://www.maangchi.com/photo/duruchigi-by-melbmatt",
-                "image_url": "https://www.maangchi.com/wp-content/uploads/2024/01/stir-fried-pork-and-kimchi-setting-2024-scaled-1200x630-cropped.jpg",
-                "language": "en",
-                "published_at": "2024-01-22T10:07:11.000000Z",
-                "source": "maangchi.com",
-                "categories": [
-                    "food"
-                ],
-                "relevance_score": null,
-                "locale": "kr"
-            },
-            {
-                "uuid": "9c4c4449-fe7d-400f-8d36-3dcb5c1f715a",
-                "title": "What’s Cooking: Pla rah sub",
-                "description": "Towards the end of the process Lauren and I are working on our next cookbook, and just started testing recipes again -- me doing the easy ones, Lauren stuck wit...",
-                "keywords": "",
-                "snippet": "Towards the end of the process\n\nLauren and I are working on our next cookbook, and just started testing recipes again — me doing the easy ones, Lauren stuck w...",
-                "url": "https://bangkokglutton.com/2024/01/19/whats-cooking-pla-rah-sub/",
-                "image_url": "https://bangkokglutton.files.wordpress.com/2024/01/finished-pla-rah-sub-1.jpg",
-                "language": "en",
-                "published_at": "2024-01-19T07:34:25.000000Z",
-                "source": "bangkokglutton.com",
-                "categories": [
-                    "food",
-                    "travel"
-                ],
-                "relevance_score": null,
-                "locale": "th"
-            },
-            {
-                "uuid": "493ece55-c42a-43e9-9e73-72eba522c9e1",
-                "title": "Huevos Rotos (Broken Eggs)",
-                "description": "Try my huevos rotos recipe for a quick and easy Spanish dish. Top with ham, peppers, and chorizo for a delicious feast anytime!",
-                "keywords": "",
-                "snippet": "Introduction\n\nHuevos rotos are a seemingly simple dish, but they're surprisingly delicious and have earned a spot on my list of favorite Spanish meals along wit...",
-                "url": "https://spanishsabores.com/huevos-rotos-spanish-broken-eggs-recipe/",
-                "image_url": "https://spanishsabores.com/wp-content/uploads/2024/01/Huevos-Rotos-Featured.jpg",
-                "language": "en",
-                "published_at": "2024-01-18T20:28:44.000000Z",
-                "source": "spanishsabores.com",
-                "categories": [
-                    "travel",
-                    "food"
-                ],
-                "relevance_score": null,
-                "locale": "es"
-            },
-            {
-                "uuid": "3c538087-c2d8-4c0d-80eb-c8c98ad3107b",
-                "title": "Black Paella (Arroz Negro)",
-                "description": "This easy black paella recipe will make the best arroz negro outside of Spain! It's simple, tasty, and just needs one pan to make.",
-                "keywords": "",
-                "snippet": "Introduction\n\nWhen I first tried black paella in Valencia, I was mesmerized by the striking sight of arroz negro—inky black rice topped with prawns and lemon ...",
-                "url": "https://spanishsabores.com/black-paella-recipe/",
-                "image_url": "https://spanishsabores.com/wp-content/uploads/2024/01/Black-Paella-Featured.jpg",
-                "language": "en",
-                "published_at": "2024-01-18T20:28:42.000000Z",
-                "source": "spanishsabores.com",
-                "categories": [
-                    "travel",
-                    "food"
-                ],
-                "relevance_score": null,
-                "locale": "es"
             },
             {
                 "uuid": "36c1fd82-f764-4c7a-aaad-4df9d99649ee",
@@ -934,24 +1033,7 @@
                 "keywords": "carrots, celery, chicken, rice",
                 "snippet": "Quick Chicken & Rice Soup\n\nOften, when we think of soup recipes, we think of time-consuming dishes that keep us in the kitchen for a long time: chopping, sauté...",
                 "url": "https://italianfoodforever.com/2024/01/quick-chicken-rice-soup/",
-                "image_url": "https://italianfoodforever.com/wp-content/themes/italianfoodforever/favicon.ico",
-                "language": "en",
-                "published_at": "2024-01-10T12:00:01.000000Z",
-                "source": "italianfoodforever.com",
-                "categories": [
-                    "food"
-                ],
-                "relevance_score": null,
-                "locale": "it"
-            },
-            {
-                "uuid": "bb7b513f-a1a8-41bd-a34f-23c64ce04904",
-                "title": "Quick Chicken & Rice Soup",
-                "description": "Living in Florida during the winter does not lend itself to craving hearty soups and stews, as our temperatures stay high. However, we have some cooler, rainy d...",
-                "keywords": "carrots, celery, chicken, rice",
-                "snippet": "Quick Chicken & Rice Soup\n\nOften, when we think of soup recipes, we think of time-consuming dishes that keep us in the kitchen for a long time: chopping, sauté...",
-                "url": "https://www.italianfoodforever.com/2024/01/quick-chicken-rice-soup/",
-                "image_url": "https://www.italianfoodforever.com/wp-content/themes/italianfoodforever/favicon.ico",
+                "image_url": "https://italianfoodforever.com/wp-content/uploads/2023/12/bestsoup8.jpg",
                 "language": "en",
                 "published_at": "2024-01-10T12:00:01.000000Z",
                 "source": "italianfoodforever.com",
@@ -1006,23 +1088,6 @@
                 "language": "en",
                 "published_at": "2024-01-26T00:33:59.000000Z",
                 "source": "apronandsneakers.com",
-                "categories": [
-                    "food"
-                ],
-                "relevance_score": null,
-                "locale": "it"
-            },
-            {
-                "uuid": "4c5b4974-5489-42b6-b522-41e4aa2e72cf",
-                "title": "Lemon Scented Olive Oil Cake",
-                "description": "The weather here in SW Florida has been awful lately, with lots of rain, cool temperatures, and grey skies. After completing my daily morning chores of caring f...",
-                "keywords": "lemon, olive oil",
-                "snippet": "Lemon Scented Olive Oil Cake\n\nThe weather here in SW Florida has been awful lately, with lots of rain, cool temperatures, and grey skies. After completing my da...",
-                "url": "https://italianfoodforever.com/2024/01/lemon-scented-olive-oil-cake/",
-                "image_url": "https://italianfoodforever.com/wp-content/themes/italianfoodforever/favicon.ico",
-                "language": "en",
-                "published_at": "2024-01-24T12:00:53.000000Z",
-                "source": "italianfoodforever.com",
                 "categories": [
                     "food"
                 ],
@@ -1321,7 +1386,54 @@
                 "locale": "it"
             }
         ];
-        var techData = [{
+        var techData = [
+        {
+      "guid": "107367788",
+      "url": "https://www.cnbc.com/2024/02/01/aws-q4-earnings-report-2023.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107260563-1687390716921-gettyimages-1247865087-CERAWEEK_2023.jpeg?v=1706824464&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Amazon cloud unit speeds up revenue growth as clients adopt AI services",
+      "description": "Amazon pointed to artificial intelligence traction in the cloud during the fourth quarter. Acceleration of cloud growth should continue, too.",
+      "summary": "Amazon pointed to artificial intelligence traction in the cloud during the fourth quarter. Acceleration of cloud growth should continue, too.",
+      "date_published": "2024-02-01T22:43:54.000Z"
+    },
+    {
+      "guid": "107367816",
+      "url": "https://www.cnbc.com/2024/02/01/metas-reality-labs-loses-4point65-billion-in-q4-ahead-of-vision-pro.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107133203-1665581669729-gettyimages-1243896879-META_CONNECT_2022.jpeg?v=1706809565&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Meta’s Reality Labs loses record $4.65 billion ahead of Apple's Vision Pro launch",
+      "description": "Meta's Reality Labs has now lost more than $40 billion dating back to late 2020.",
+      "summary": "Meta's Reality Labs has now lost more than $40 billion dating back to late 2020.",
+      "date_published": "2024-02-01T21:29:38.000Z"
+    },
+    {
+      "guid": "107367935",
+      "url": "https://www.cnbc.com/2024/02/01/meta-is-paying-first-ever-dividend-authorizes-50-billion-buyback.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/107307714-1695846630469-gettyimages-1693640169-AFP_33WW2FR.jpeg?v=1706827527&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Meta is paying first-ever dividend, authorizes $50 billion buyback",
+      "description": "Meta will pay a 50 cent dividend, its first ever, and has authorized a $50 billion share buyback.",
+      "summary": "Meta will pay a 50 cent dividend, its first ever, and has authorized a $50 billion share buyback.",
+      "date_published": "2024-02-01T22:40:51.000Z"
+    },
+    {
+      "guid": "107367891",
+      "url": "https://www.cnbc.com/2024/02/01/amazon-announces-ai-shopping-assistant-called-rufus.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/106848357-1614774690045-gettyimages-1231487844-widak-amazonqu210303_npAct.jpeg?v=1706820914&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Amazon announces AI shopping assistant called Rufus",
+      "description": "Amazon is rolling out an assistant that uses generative artificial intelligence to help users search and shop for products.",
+      "summary": "Amazon is rolling out an assistant that uses generative artificial intelligence to help users search and shop for products.",
+      "date_published": "2024-02-01T20:56:27.000Z"
+    },
+    {
+      "guid": "107367804",
+      "url": "https://www.cnbc.com/2024/02/01/zoom-layoffs-company-cuts-150-employees-2percent-of-workforce.html",
+      "image_url":"https://image.cnbcfm.com/api/v1/image/106281174-1575574467956gettyimages-1177090302.jpeg?v=1706812598&w=929&h=523&ffmt=webp&vtcrop=y",
+      "title": "Zoom is cutting about 150 jobs, or close to 2% of its workforce",
+      "description": "Zoom on Thursday confirmed that it's cutting about 2% of its workforce, becoming the latest tech company to announce layoffs.",
+      "summary": "Zoom on Thursday confirmed that it's cutting about 2% of its workforce, becoming the latest tech company to announce layoffs.",
+      "date_published": "2024-02-01T22:21:37.000Z"
+    },   
+        
+        {
                 "title": "Netflix is paying $5 billion to be the home of WWE's Monday Night Raw",
                 "description": "Audiences love live sports, and the money is following them",
                 "url": "https://qz.com/netflix-is-paying-5-billion-to-be-the-home-of-wwes-mon-1851188480",
@@ -1960,7 +2072,56 @@
                 "locale": "us"
             }
         ];
-        var sportsData = [{
+        var sportsData = [
+    {
+      "guid": "e26b013b-668f-477a-b354-e92d630c3d20",
+      "url": "https://www.cbssports.com/nfl/news/this-west-wing-episode-shows-its-possible-for-taylor-swift-to-get-from-tokyo-to-the-2024-super-bowl/",
+      "image_url": "https://sportshub.cbsistatic.com/i/r/2024/01/30/4124eb89-50be-416a-a8cd-6826bb27dd01/thumbnail/770x433/f69b5423491429156c1815700757bf74/swift-kelce.jpg",
+      "title": "This 'West Wing' episode shows it's possible for Taylor Swift to get from Tokyo to the 2024 Super Bowl",
+      "description": "You just need to watch this 'West Wing' clip if you want to know whether Swift can make it to the big game",
+      "summary": "You just need to watch this 'West Wing' clip if you want to know whether Swift can make it to the big game",
+      "date_published": "2024-02-01T22:51:40.000Z",
+      "author": {
+        "name": "John Breech"
+      }
+    },
+    {
+      "guid": "7819d774-da9b-4a41-a34b-15eabd08cf2f",
+      "url": "https://www.cbssports.com/nfl/news/taylor-swift-could-be-super-bowl-bound-basic-nfl-rules-explainer-for-swifties-ahead-of-chiefs-vs-49ers/",
+      "image_url": "https://sportshub.cbsistatic.com/i/r/2024/01/31/2a263ef1-3dee-4734-bf06-6e03e8f3d142/thumbnail/770x433/dd5adbedc41f59908ab1b8dbfd429e47/taylor-swift-usatsi.jpg",
+      "title": "Taylor Swift could be Super Bowl-bound: Basic NFL rules explainer for Swifties ahead of Chiefs vs. 49ers",
+      "description": "Here's how to tune in and follow the action",
+      "summary": "Here's how to tune in and follow the action",
+      "date_published": "2024-02-01T22:50:37.000Z",
+      "author": {
+        "name": "Cody Benjamin"
+      }
+    },
+    {
+      "guid": "ae0b02b0-0f08-48e2-8730-4c4a3e45bf67",
+      "url": "https://www.cbssports.com/nfl/news/is-taylor-swift-the-most-famous-nfl-fan-ever-every-teams-most-well-known-celebrity-supporters/",
+      "image_url": "https://sportshub.cbsistatic.com/i/r/2024/01/29/9fb8e16e-be95-4036-8263-a156e52f354c/thumbnail/770x433/0f1b499e0ae74fd9e22af86f8864db9a/kelce-and-swift.jpg",
+      "title": "Is Taylor Swift the most famous NFL fan ever? Every team's most well-known celebrity supporters",
+      "description": "Here's a look at notable fans for each of the NFL's 32 teams",
+      "summary": "Here's a look at notable fans for each of the NFL's 32 teams",
+      "date_published": "2024-02-01T22:49:32.000Z",
+      "author": {
+        "name": "Shanna McCarriston"
+      }
+    },
+    {
+      "guid": "020ee946-7f90-4b85-862e-e3b9c22908e3",
+      "url": "https://www.cbssports.com/nfl/news/will-taylor-swift-be-at-super-bowl-58-to-see-chiefs-travis-kelce-how-japan-tour-dates-align-with-big-game/",
+      "image_url": "https://sportshub.cbsistatic.com/i/r/2024/01/28/a88684ee-ce53-4d7a-84d3-d28d9f647b2c/thumbnail/770x433/e72daa9eae8321346637c81cf6301f3a/kelce-swift-g.jpg",
+      "title": "Will Taylor Swift be at Super Bowl 58 to see Chiefs' Travis Kelce? How Japan tour dates align with big game",
+      "description": "Swift, who will be performing in Tokyo right before the Super Bowl, has a way to be there in person",
+      "summary": "Swift, who will be performing in Tokyo right before the Super Bowl, has a way to be there in person",
+      "date_published": "2024-02-01T22:46:33.000Z",
+      "author": {
+        "name": "Shanna McCarriston"
+      }
+    },
+        {
                 "uuid": "42a58b47-b25a-464b-94ec-972cbd05a8f8",
                 "title": "Kieran Trippier: Newcastle reject Bayern Munich offer for England right-back",
                 "description": "Newcastle United turn down a 15m euro (£12.8m) offer from Bayern Munich for right-back Kieran Trippier.",
@@ -2764,7 +2925,70 @@
             
             
         ];
-        var entertainmentData = [{
+        var entertainmentData = [
+        {
+      "guid": "a46675f0-931e-43cb-9e4d-fe437b25f7bd",
+      "url": "https://www.etonline.com/the-best-lg-super-bowl-tv-deals-at-best-buy-save-hundreds-on-oled-qled-and-more-218978",
+      "image_url": "https://www.etonline.com/_next/image?url=https%3A%2F%2Fwww.etonline.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F1280x720%2Fpublic%2Fimages%2F2024-02%2FGettyImages-1408420530.jpg%3Fh%3D271aaa1c&w=1024&q=100",
+      "title": "The Best LG Super Bowl TV Deals at Best Buy: Save Hundreds on OLED, QLED and More",
+      "description": "Bring the Super Bowl into your living room with a discounted LG smart TV on sale at Best Buy right now.",
+      "summary": "Bring the Super Bowl into your living room with a discounted LG smart TV on sale at Best Buy right now.",
+      "date_published": "2024-02-01T22:52:02.000Z",
+      "author": {
+        "name": "Brittany Vincent‍"
+      }
+    },
+    {
+      "guid": "708586db-12f7-4e64-8d85-85160bd477f9",
+      "url": "https://www.etonline.com/how-to-watch-the-2024-nhl-all-star-game-online-schedule-tv-live-stream-and-more-218935",
+      "image_url": "https://www.etonline.com/_next/image?url=https%3A%2F%2Fwww.etonline.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F1280x720%2Fpublic%2Fimages%2F2024-01%2FGettyImages-1897341970.jpg%3Fh%3D57c7de8d&w=1024&q=100",
+      "title": "How to Watch the 2024 NHL All-Star Game Online: Schedule, TV, Live Stream and More",
+      "description": "Hockey's biggest stars are in Toronto for the 2024 NHL All-Star Game. Here's how to watch the events live.",
+      "summary": "Hockey's biggest stars are in Toronto for the 2024 NHL All-Star Game. Here's how to watch the events live.",
+      "date_published": "2024-02-01T22:27:52.000Z",
+      "author": {
+        "name": "Andy Garden‍"
+      }
+    },
+    {
+      "guid": "7611047b-5f4b-433c-81e9-d072ab1d5fd3",
+      "image_url": "https://www.etonline.com/_next/image?url=https%3A%2F%2Fwww.etonline.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F640xh%2Fpublic%2Fimages%2F2024-02%2FIMG_4812.png&w=1024&q=75",
+      "url": "https://www.etonline.com/tom-sandoval-dating-victoria-lee-robinson-after-rachel-leviss-affair-219022",
+      "title": "Tom Sandoval Dating Victoria Lee Robinson After Rachel Leviss Affair",
+      "description": "The two have been spotted spending time together in Los Angeles.",
+      "summary": "The two have been spotted spending time together in Los Angeles.",
+      "date_published": "2024-02-01T22:10:30.000Z",
+      "author": {
+        "name": "Tionah Lee‍"
+      }
+    },
+    {
+      "guid": "ee711e4a-2c20-41fc-930c-daf0e1b46db8",
+      "image_url": "https://www.etonline.com/sites/default/files/styles/292x165/public/images/2024-01/ETD_INTV_TOM_SANDOVAL_20240117_16X9.jpg?h=d1cb525d&width=226&height=127&format=pjpg",
+      "url": "https://www.etonline.com/tom-sandovals-assistant-reacts-to-intercepting-rachel-leviss-letters-to-him-amid-scandoval-219023",
+      "title": "Tom Sandoval's Assistant Reacts to Intercepting Rachel Leviss' Letters to Him Amid Scandoval",
+      "description": "Ann Maddox is speaking out about her time as the 'Vanderpump Rules' star's assistant.",
+      "summary": "Ann Maddox is speaking out about her time as the 'Vanderpump Rules' star's assistant.",
+      "date_published": "2024-02-01T22:04:10.000Z",
+      "author": {
+        "name": "Paige Gawley‍"
+      }
+    },
+    {
+      "guid": "5984c9f4-f4c7-4776-b495-5b53d6a5f1a5",
+      "image_url":"https://www.etonline.com/_next/image?url=https%3A%2F%2Fwww.etonline.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F1280x720%2Fpublic%2Fimages%2F2023-10%2FETD_SHOWCLIP_A08%2520KALEY%2520CUOCO_EXT_102623_VIDPIC.jpg%3Fh%3Dd1cb525d&w=1024&q=100",
+      "url": "https://www.etonline.com/kaley-cuoco-mourns-death-of-first-dog-she-rescued-with-tom-pelphrey-219019",
+      "title": "Kaley Cuoco Mourns Death of First Dog She Rescued With Tom Pelphrey",
+      "description": "The actress announced the death of her pup on Instagram Thursday.",
+      "summary": "The actress announced the death of her pup on Instagram Thursday.",
+      "date_published": "2024-02-01T21:21:47.000Z",
+      "author": {
+        "name": "Hope Sloop‍"
+      }
+    },
+        
+        
+        {
                 "uuid": "9be5ebe2-7ee3-436c-a3cb-a435417583b0",
                 "title": "‘American Sports Story’: Jaylen Barron Cast As Aaron Hernandez’s Fiancée Shayanna Taylor",
                 "description": "‘American Sports Story’: Jaylen Barron To Star As Aaron Hernandez's Fiancée Shayanna Taylor",
@@ -3693,13 +3917,9 @@
 
     
     
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="lab2.js"></script>
-
-
+  </script> 
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+  <script src="lab2.js"></script>
 </body>
-
 </html>
