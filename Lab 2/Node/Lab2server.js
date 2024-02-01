@@ -7,8 +7,7 @@ const PORT = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
 
-// Load articles from the JSON file
-const articles = require('../lab2.json');
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../lab2.html'));
