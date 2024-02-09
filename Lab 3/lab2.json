@@ -3510,8 +3510,7 @@
           "locale": "us"
       }
     ],
-    "science": [
-      {
+    "science": [{
           "uuid": "15cddc6b-d0a8-42d3-b352-995996a693f4",
           "title": "22 Indian-origin scientists to take up collaborative research with institutes in country",
           "description": "Science News: The government announced the Vaibhav fellowship for scientists of Indian origin to collaborate on research projects in areas such as electrical en...",
@@ -4477,9 +4476,8 @@
           ],
           "relevance_score": null,
           "locale": "in"
-      }
-    ],
-    ": [
+        
+      },
       {
           "uuid": "42a58b47-b25a-464b-94ec-972cbd05a8f8",
           "title": "Kieran Trippier: Newcastle reject Bayern Munich offer for England right-back",
@@ -4496,9 +4494,12 @@
           ],
           "relevance_score": null,
           "locale": "gb"
-      },
-      {
-   "sports       "uuid": "23ce2213-8b9f-4fdb-be2a-c24390d28d51",
+    
+      }
+    
+    ],
+   "sports": [  {
+         "uuid": "23ce2213-8b9f-4fdb-be2a-c24390d28d51",
           "title": "Sir Dave Brailsford remains 'the Godfather' of Ineos Grenadiers, says new chief exec",
           "description": "Sir Dave Brailsford remains \"the Godfather\" of Ineos Grenadiers despite stepping aside as team principal says new boss John Allert.",
           "keywords": "",
@@ -6162,4 +6163,4 @@
           "locale": "us"
       }
     ]
-  }
+}
