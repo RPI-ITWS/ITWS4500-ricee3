@@ -79,6 +79,7 @@ app.listen(PORT, () => {
 });
 
 
+
 app.get('/weather-and-news', async (req, res) => {
   try {
     const latitude = 42.7284;
@@ -140,7 +141,7 @@ app.put('/update-external-data/:id', async (req, res) => {
 
 async function fetchWeatherData(latitude, longitude) {
   try {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=7d115b9c429e498c2367ff001ed46451`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -180,3 +181,35 @@ app.get('/:id', (req, res) => {
 
 
 
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    fs.readFile('lab3.html', 'utf8', (err, data) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(data);
+      }
+    });
+  } else if (req.url === '/getApiData') {
+    // Fetch the API response
+    fetch('https://your-api-endpoint')
+      .then(response => response.json())
+      .then(data => {
+        // Update the HTML with the API response
+        const imageUrl = data.url;
+        const imageContainer = `<img src="${imageUrl}" alt="Random Dog Image">`;
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(imageContainer);
+      })
+      .catch(error => {
+        console.error('Error fetching API data:', error);
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      });
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
+  }
+});
