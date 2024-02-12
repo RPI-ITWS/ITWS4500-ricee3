@@ -140,7 +140,7 @@ app.put('/update-external-data/:id', async (req, res) => {
 
 async function fetchWeatherData(latitude, longitude) {
   try {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=7d115b9c429e498c2367ff001ed46451`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {

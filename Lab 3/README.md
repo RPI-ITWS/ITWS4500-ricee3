@@ -1,6 +1,7 @@
 API WEBSITES - 
 Cat Fun Facts - https://alexwohlbruck.github.io/cat-facts/
 Weather API Website - https://home.openweathermap.org/myservices
+Dog Images - https://dog.ceo/api/breeds/image/random
 
 IMAGES USED LINKS - 
 Weather - https://cdn-icons-png.flaticon.com/512/7477/7477790.png

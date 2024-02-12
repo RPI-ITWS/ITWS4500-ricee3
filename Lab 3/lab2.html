@@ -245,9 +245,7 @@
       <div id="weather-and-news-container"></div>
       <br>
       <div id="imageContainer2"></div>
-      
       <br>
-      
       <div id="factContainer">
         <h1><b><u>Very Random, But Interesting Cat Facts 🐈 </u></b></h1>
         <div id="imageContainer">
@@ -3943,41 +3941,40 @@
             
                
                 document.addEventListener('DOMContentLoaded', () => {
-            // Fetch data from your server
-            fetch('/weather-and-news')
-            .then(response => response.json())
-            .then(data => {
-              // Update the HTML content with the fetched data
-              updateWeatherAndNews(data);
-            })
-            .catch(error => {
-              console.error('Error fetching data:', error);
-            });
-            });
-            
-            function kelvinToFahrenheit(kelvin) {
-            return (kelvin - 273.15) * 9/5 + 32;
-            }
-            
-            function updateWeatherAndNews(data) {
-            const container = document.getElementById('weather-and-news-container');
-            
-            // Display weather information
-            const weatherContainer = document.createElement('div');
-            weatherContainer.innerHTML = `<h2>Weather in Troy, New York<\/h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/7477/7477790.png" width="200" height="200">
-            <p>Temperature: ${Math.round(kelvinToFahrenheit(data.weather.main.temp))}°F<\/p>
-            <p>High Temp: ${Math.round(kelvinToFahrenheit(data.weather.main.temp_max))}°F<\/p>
-            <p>Low Temp: ${Math.round(kelvinToFahrenheit(data.weather.main.temp_min))}°F<\/p>
-            <p>Humidity: ${data.weather.main.humidity}%<\/p>
-            <p>Wind Speed: ${data.weather.wind.speed} m/s<\/p>`;
-            
-            
-            
-            // Append both containers to the main container
-            container.appendChild(weatherContainer);
-            
-            }
+  // Fetch data from your server
+  fetch('/weather-and-news')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Received data:', data); // Log the received data
+      // Update the HTML content with the fetched data
+      updateWeatherAndNews(data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+});
+
+function kelvinToFahrenheit(kelvin) {
+  return (kelvin - 273.15) * 9/5 + 32;
+}
+
+function updateWeatherAndNews(data) {
+  const container = document.getElementById('weather-and-news-container');
+
+  // Display weather information
+  const weatherContainer = document.createElement('div');
+  weatherContainer.innerHTML = `<h2>Weather in Troy, New York</h2>
+    <img src="https://cdn-icons-png.flaticon.com/512/7477/7477790.png" width="200" height="200">
+    <p>Temperature: ${Math.round(kelvinToFahrenheit(data.weather.main.temp))}°F</p>
+    <p>High Temp: ${Math.round(kelvinToFahrenheit(data.weather.main.temp_max))}°F</p>
+    <p>Low Temp: ${Math.round(kelvinToFahrenheit(data.weather.main.temp_min))}°F</p>
+    <p>Humidity: ${data.weather.main.humidity}%</p>
+    <p>Wind Speed: ${data.weather.wind.speed} m/s</p>`;
+
+  // Append both containers to the main container
+  container.appendChild(weatherContainer);
+}
+
 
             document.addEventListener("DOMContentLoaded", function () {
   const fetchFactButton = document.getElementById("fetchFact");
