@@ -61,6 +61,14 @@ async function fetchData(stockId, currency) {
  
  document.getElementById('stockForm').addEventListener('submit', function (event) {
     event.preventDefault();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add event listener to the "Save" button
+        const saveButton = document.getElementById('save-button');
+        saveButton.addEventListener('click', () => {
+            saveStockInfo();
+        });
+    });
  
     const stockSymbols = document.getElementById('stockIdInput').value.split(',').map(symbol => symbol.trim());
     const selectedCurrency = document.getElementById('currency-select').value;
