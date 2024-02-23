@@ -136,3 +136,16 @@ button:hover {
   color: #fff;
  /* Set text color to white */
 }
+
+#save-button{
+  margin-right: 5px;
+}
+
+#edit-button{
+  margin-right: 5px;
+}
+
+#delete-button{
+  margin-right: 5px;
+}
+
