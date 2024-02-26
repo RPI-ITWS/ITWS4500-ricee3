@@ -1,4 +1,4 @@
-VIEW REACT LOCAL HOST - http://localhost:3000/
+VIEW REACT LOCAL HOST - http://localhost:3000/ or http://localhost:3000/?
 
 WORK LOG -
 - 2/13: Started in class, first day with react
