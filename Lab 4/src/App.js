@@ -8,6 +8,7 @@ function App() {
   const [historyData, setHistoryData] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
 
+
   const handleCurrencyChange = (event) => {
     setSelectedCurrency(event.target.value);
   };
@@ -141,29 +142,72 @@ function App() {
   };
 
   
+// React Frontend
 
-  const handleDeleteData = async () => {
-    try {
-      console.log('Deleting data:', stockId, selectedCurrency);
-    
-      const response = await fetch(`/deleteData/${stockId}/${selectedCurrency}`, {
-        method: 'DELETE',
-      });
-    
-      console.log('Delete Response:', response);
-    
-      if (response.ok) {
-        alert('Data deleted successfully');
+const handleDeleteData = (index) => {
+  try {
+    console.log('Deleting data at index:', index);
+
+    setHistoryData((prevHistoryData) =>
+      prevHistoryData.filter((entry, i) => i !== index)
+    );
+
+    alert('Data deleted successfully');
+  } catch (error) {
+    console.error('Error handling delete data:', error);
+    alert('Failed to delete data');
+  }
+};
+
+
+const handleDeleteDataAll = () => {
+  try {
+    console.log('Deleting all data');
+
+    // Clear all data in historyData
+    setHistoryData([]);
+
+    alert('All data deleted successfully');
+  } catch (error) {
+    console.error('Error handling delete data:', error);
+    alert('Failed to delete data');
+  }
+};
+
+
+  
+const handleEditData = (index, isHistory) => {
+  try {
+    const newStockId = prompt('Enter the new stock ID:');
+    const newCurrency = prompt('Enter the new currency:');
+
+    if (newStockId && newCurrency) {
+      if (isHistory) {
+        // Editing historical data
+        const updatedHistory = [...historyData];
+        updatedHistory[index] = {
+          ...updatedHistory[index],
+          stock: newStockId,
+          currency: newCurrency,
+        };
+        setHistoryData(updatedHistory);
+        alert('Historical data edited successfully');
       } else {
-        const errorResponse = await response.json();
-        console.error('Delete Data Error:', errorResponse);
-        alert(`Failed to delete data. Error: ${errorResponse.message}`);
+        // Editing saved data
+        const updatedSavedData = { ...stockInfo, stockId: newStockId, selectedCurrency: newCurrency };
+        setStockInfo(updatedSavedData);
+        alert('Saved data edited successfully');
       }
-    } catch (error) {
-      console.error('Error handling delete data:', error);
-      alert('Failed to delete data');
+    } else {
+      alert('Please enter valid stock ID and currency.');
     }
-  };
+  } catch (error) {
+    console.error('Error handling edit data:', error);
+    alert('Failed to edit data');
+  }
+};
+
+  
   
   const editData = async () => {
     try {
@@ -200,23 +244,89 @@ function App() {
       alert('Failed to edit data');
     }
   };
-  
+
   
   const fetchAndDisplayHistoricalData = async () => {
     try {
       console.log('Fetching historical data');
-    
+  
       const response = await fetch('/history');
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch historical data. Status: ${response.status}`);
+      }
+  
       const historicalData = await response.json();
-    
+  
       console.log('Historical Data:', historicalData);
-    
+  
+      // Log the data before updating the state and displaying
+      // This will help you ensure that the backend response is as expected
       displayHistoricalData(historicalData);
+      setHistoryData(historicalData);
     } catch (error) {
-      console.error('Error fetching historical data:', error);
+      console.error('Error fetching historical data:', error.message);
       alert('Failed to fetch historical data');
     }
   };
+  
+  
+
+ 
+  
+  const handleHistoryButtonClick = async () => {
+    try {
+      console.log('fetching historical data');
+  
+      // Save the data first
+      const data = await fetchData();
+  
+      console.log('Fetched data:', data);
+  
+      if (data) {
+        // Check if the data is already in the history
+        const isInHistory = historyData.some(entry => entry.stock === data.symbol && entry.currency === selectedCurrency);
+  
+        if (!isInHistory) {
+          // If not in history, save it
+          saveToHistory(data);
+          alert('History Shown Below'); // Optionally, you can notify the user that data is saved.
+        } else {
+          alert('Data is already in history.');
+        }
+      } else {
+        alert('Failed to fetch data. Please try again.');
+      }
+  
+      // Toggle the visibility of the history section
+      setShowHistory(!showHistory);
+    } catch (error) {
+      console.error('Error handling history button click:', error);
+    }
+  };
+  
+  
+
+  
+  const handleSave = async () => {
+    try {
+      console.log('Saving data:', stockId, selectedCurrency);
+      const data = await fetchData();
+  
+      console.log('Fetched data:', data);
+  
+      if (data) {
+        saveToHistory(data);
+        alert('Saving Stock to History'); // Optionally, you can notify the user that data is saved.
+      } else {
+        alert('Failed to fetch data. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error handling save:', error);
+    }
+  };
+  
+  
   
 
 
@@ -243,7 +353,6 @@ function App() {
           // Based on the implementation of your backend API
         } else {
           updateUI(data);
-          saveToHistory(data);
         }
       } else {
         alert('Failed to fetch data. Please try again.');
@@ -253,24 +362,8 @@ function App() {
     }
   };
 
-  const handleSave = async () => {
-    try {
-      console.log('Saving data:', stockId, selectedCurrency);
-      const data = await fetchData();
-  
-      console.log('Fetched data:', data);
-  
-      if (data) {
-        updateUI(data);
-        saveToHistory(data);
-      } else {
-        alert('Failed to fetch data. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error handling save:', error);
-    }
-  };
-   
+
+
   const calculatePrice = (price, conversionRate) => {
     return (price * conversionRate).toFixed(2); // Adjust decimal places as needed
   };
@@ -343,18 +436,30 @@ function App() {
                <option value="ZAR">ZAR</option>
           </select>
         </form>
-        <button id="save-button" onClick={handleSubmit}>Save</button>
-        <button id="edit-button" onClick={() => { setEditMode(true); editData(); }}>Edit</button>
-      <button id="delete-button" onClick={handleDeleteData}>Delete Data</button>
-      <button id="history-button" onClick={fetchAndDisplayHistoricalData}>History</button>
+        <button id="save-button" onClick={handleSave}>
+          Save
+        </button>
+      <button id="delete-button" onClick={handleDeleteDataAll}>Delete All</button>
+      <button id="history-button" onClick={handleHistoryButtonClick}>
+          History
+        </button>
         <br />
         <ul id="history-list">
-          {historyData.map((entry, index) => (
-            <li key={index}>
-              Stock: {entry.stock}, Currency: {entry.currency}, Last Price: {entry.last}, Mid Price: {entry.mid}, Ask Price: {entry.ask}, Time: {entry.time}
-            </li>
-          ))}
-        </ul>
+  {historyData.map((entry, index) => (
+    <li key={index} className="history-item">
+      <div className="history-content">
+        Stock: {entry.stock}, Currency: {entry.currency}, Last Price: {entry.last}, Mid Price: {entry.mid}, Ask Price: {entry.ask}, Time: {entry.time}
+      </div>
+      <button className="edit-button2" onClick={() => handleEditData(index, true)}>
+        Edit
+      </button>
+      <button className="delete-button2" onClick={() => handleDeleteData(index)}>
+        Delete
+      </button>
+    </li>
+  ))}
+</ul>
+
       </main>
     </div>
   );

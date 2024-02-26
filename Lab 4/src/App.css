@@ -149,3 +149,20 @@ button:hover {
   margin-right: 5px;
 }
 
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px; /* Adjust the margin as needed */
+}
+
+.history-content {
+  flex-grow: 1; /* Takes up remaining space */
+}
+
+.delete-button2 {
+  margin-left: 8px; /* Adjust the margin as needed */
+}
+#edit-button2{
+  margin-right: 5px;
+}
