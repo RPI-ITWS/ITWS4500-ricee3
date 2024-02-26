@@ -18,7 +18,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const stockResponse = await fetch(`https://api.marketdata.app/v1/stocks/quotes/AAPL/`);
+      const stockResponse = await fetch(`https://api.marketdata.app/v1/stocks/quotes/${stockId}/`);
   
       if (!stockResponse.ok) {
         const stockErrorText = await stockResponse.text();
@@ -28,16 +28,57 @@ function App() {
   
       const stockData = await stockResponse.json();
   
+      console.log('Stock Data:', stockData); 
+      
+      let lastPrice, midPrice, askPrice;
+
+      // Determine last price
+      if ('last' in stockData && stockData.last !== null) {
+        lastPrice = stockData.last;
+      } else if ('latest' in stockData && stockData.latest !== null) {
+        lastPrice = stockData.latest;
+      } else if ('lastExtendedHours' in stockData && stockData.lastExtendedHours !== null) {
+        lastPrice = stockData.lastExtendedHours;
+      } else {
+        console.error('Invalid last price data:', stockData);
+        throw new Error('Failed to determine last price');
+      }
+  
+
+      if ('bid' in stockData && 'ask' in stockData && !isNaN(stockData.bid) && !isNaN(stockData.ask)) {
+        midPrice = (parseFloat(stockData.bid) + parseFloat(stockData.ask)) / 2;
+      } else if ('last' in stockData && stockData.last !== null) {
+        midPrice = stockData.last;
+      } else if ('latest' in stockData && stockData.latest !== null) {
+        midPrice = stockData.latest;
+      } else if ('lastExtendedHours' in stockData && stockData.lastExtendedHours !== null) {
+        midPrice = stockData.lastExtendedHours;
+      } else {
+        console.error('Invalid mid price data:', stockData);
+        throw new Error('Failed to determine mid price');
+      }
+
+    
+      // Determine ask price
+      if ('ask' in stockData && stockData.ask !== null) {
+        askPrice = stockData.ask;
+      } else {
+        console.error('Invalid ask price data:', stockData);
+        throw new Error('Failed to determine ask price');
+      }
+
       let currencyConversionRate;
   
       if (selectedCurrency !== 'USD') {
-        const currencyResponse = await fetch(`https://api.frankfurter.app/latest?from=USD`);
+        const currencyResponse = await fetch(`https://api.frankfurter.app/latest?from=USD&to=${selectedCurrency}`);
+        const currencyData = await currencyResponse.json();
   
-        if (!currencyResponse.ok) {
-          const currencyErrorText = await currencyResponse.text();
-          console.error('Currency API Error:', currencyErrorText);
-          throw new Error('Failed to fetch currency data');
+        if (!currencyResponse.ok || !currencyData.rates[selectedCurrency]) {
+          console.error('Invalid Currency Conversion Data:', currencyData);
+          throw new Error('Failed to fetch currency conversion data');
         }
+  
+        currencyConversionRate = currencyData.rates[selectedCurrency];
       } else {
         currencyConversionRate = 1;
       }
@@ -45,18 +86,20 @@ function App() {
       const stockInfo = {
         symbol: stockData.symbol,
         companyName: stockData.companyName,
-        lastPrice: stockData.last || stockData.latest,
-        mid: stockData.mid,
-        ask: stockData.ask,
+        lastPrice: calculatePrice(lastPrice, currencyConversionRate),
+        mid: calculatePrice(midPrice, currencyConversionRate),
+        ask: calculatePrice(askPrice, currencyConversionRate),
         currencyConversionRate: currencyConversionRate
       };
-      
+  
       return stockInfo;
     } catch (error) {
       console.error('Error fetching data:', error);
       return null;
     }
   };
+  
+  
 
   const updateUI = (data) => {
     setStockInfo(data);
@@ -210,7 +253,29 @@ function App() {
     }
   };
 
- 
+  const handleSave = async () => {
+    try {
+      console.log('Saving data:', stockId, selectedCurrency);
+      const data = await fetchData();
+  
+      console.log('Fetched data:', data);
+  
+      if (data) {
+        updateUI(data);
+        saveToHistory(data);
+      } else {
+        alert('Failed to fetch data. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error handling save:', error);
+    }
+  };
+   
+  const calculatePrice = (price, conversionRate) => {
+    return (price * conversionRate).toFixed(2); // Adjust decimal places as needed
+  };
+  
+  
 
   return (
     <div>
@@ -233,6 +298,7 @@ function App() {
     </>
   )}
 </div>
+
         <form id="stockForm" onSubmit={handleSubmit}>
           <label htmlFor="stockIdInput" id="StockId">
             <b>Enter Stock ID:</b>
