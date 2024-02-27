@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Quiz 1</title>
+  
+   <style>
+      body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 100vh;
+         background-color: #9b82b6;
+      }
+
+      #container {
+         max-width: 400px;
+         padding: 50px;
+         background-color: rgb(125, 88, 147);
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         color: rgb(247, 220, 255);
+      }
+
+      h1 {
+         text-align: center;
+         color: rgb(247, 220, 255);
+      }
+
+      form {
+         display: flex;
+         flex-direction: column;
+         align-items: stretch;
+      }
+
+      label {
+         margin-top: 10px;
+         margin-bottom: 5px;
+         font-weight: bold;
+      }
+
+      input, select, button {
+         margin-bottom: 15px;
+         padding: 10px;
+         border: 1px solid  rgb(247, 220, 255);
+         border-radius: 4px;
+         font-size: 14px;
+      }
+
+      button {
+         background-color: #531a6a;
+         color: rgb(247, 220, 255);
+         cursor: pointer;
+      }
+
+      #modeToggle{
+        margin-left: 80px
+      }
+
+      button:hover {
+         background-color: #962dbf;
+      }
+
+      #activityResult {
+         text-align: center;
+         font-size: 16px;
+         color:  rgb(247, 220, 255);
+      }
+
+      .dark-mode {
+        background-color: rgb(36, 9, 75);
+        color: #fff;
+      }
+
+      .dark-mode button{
+        background-color: rgb(86, 76, 138);
+        color: #fff;
+      }
+
+      .dark-mode button:hover{
+        background-color: rgb(174, 144, 187);
+      }
+
+      .dark-mode #container {
+        background-color: rgb(19, 2, 44);
+        color: white;
+      }
+
+      .dark-mode #activityResult {
+        color: rgb(255, 255, 255);
+      }
+
+      .dark-mode h1{
+        color: white;
+      }
+      
+  
+
+   </style>
+</head>
+<body>
+
+   <div id="container">
+      <h1>Bored Activity Finder</h1>
+      <button id="modeToggle"onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+      <form id="activityForm">
+         <label for="activityType">Activity Type:</label>
+         <input type="text" id="activityType" name="activityType" placeholder="e.g., education, music, recreational, social">
+
+         <label for="participants">Participants (optional):</label>
+         <input type="number" id="participants" name="participants" placeholder="e.g., 1">
+
+         <button type="button" onclick="fetchBoredActivity()">Find Activity</button>
+      </form>
+
+      <div id="activityResult">
+         <!-- Display fetched activity result here -->
+      </div>
+   </div>
+
+   <script>
+      async function fetchBoredActivity() {
+         const activityType = document.getElementById('activityType').value;
+         const participants = document.getElementById('participants').value;
+
+         try {
+            let apiUrl = `/api/activity`;
+            // Include type and optional participants in the query string
+            if (activityType) {
+               apiUrl += `?type=${activityType}`;
+               if (participants) {
+                  apiUrl += `&participants=${participants}`;
+               }
+            }
+
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            // Display the fetched activity result
+            const activityResultDiv = document.getElementById('activityResult');
+            activityResultDiv.innerHTML = `<strong>Activity:</strong> ${data.activity}`;
+         } catch (error) {
+            console.error('Error fetching activity:', error);
+            // Handle error, display message to the user, etc.
+         }
+      }
+
+
+      function toggleDarkMode() {
+          const body = document.body;
+          body.classList.toggle('dark-mode');
+      }
+   </script>
+
+</body>
+</html>
