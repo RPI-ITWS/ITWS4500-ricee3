@@ -7,7 +7,6 @@ WORK LOG -
 - 2/25: Pretty much got everything working, save, delete, edit and history, also got the stock prices to display correctly again after messing with it
 
 
-
 OVERVIEW OF LAB -
 
 Overall this lab was kinda annoying at first because getting the frontend info over to react was 
@@ -18,6 +17,12 @@ Also, throughout the lab I had to keep going back onto Node to make sure that my
 working the same as it was on my lab 3 becaue I forgot how everything was supposed to function. I'm not
 a fan of react tbh, although I think that I liked react more than Node because Node was the most annoying thing ever.
 
+
+
+CREATIVITY -
+My creativity throghout my website is getting the website to switch from light to dark mode whenever the button is click.
+Onces the button is clicked the whole website information switches to the preference of the user. They can always switch back
+and forth whenever they like.
 
 LINKS USED TO HELP - 
 
