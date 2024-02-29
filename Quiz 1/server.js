@@ -1,10 +1,10 @@
 const express = require('express');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
 const app = express();
 const port = 3000; // Set your desired port
 
-app.use(express.json());
+app.use(express.static('public'));
 
 // Endpoint to fetch a random activity or activity based on the provided type
 app.get('/api/activity', async (req, res) => {
