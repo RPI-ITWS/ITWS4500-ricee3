@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 5</title>
+  <style>
+    body {
+      background-color: lightblue;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #000000;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #4b4b4b;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="head"></header>
+
+  <div class="button-container">
+    <button id="get-button" class="button">GET</button>
+    <button id="post-button" class="button">POST</button>
+    <button id="put-button" class="button">PUT</button>
+    <button id="delete-button" class="button">DELETE</button>
+  </div>
+
+  <footer id="foot"></footer>
+
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="index.js"></script>
+
+</body>
+</html>
