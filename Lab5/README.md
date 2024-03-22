@@ -41,4 +41,4 @@ This lab was such a pain in the buttt omgggggg, I started off completely confuse
 Which I didn't know I was doing anything wrong up until I went to see Dr. Callahan, which he helped me out alot because it got me on track to understand what was going on.
 Once I figured out what the heck I was supposed to do and complete I restarted the whole thing and started from lab 3 and 4. From there I got my collections and everything connected and then I had to work on the submit, save, delete, history and edit buttons which I finally completed. Overall, this lab sucked in my opinion but the only reason is because I had no idea what was going on in the beginning. Once I sat down and got help and figured it out I ended up doing good and getting it done quick.
 
- 
+ :)
