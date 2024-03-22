@@ -22,4 +22,23 @@ https://stackoverflow.com/questions/16148403/using-node-js-to-connect-to-a-rest-
 
 LOCAL HOST - http://localhost:3000/ (go to this link to test the lab) Also Entering stock id such as AAPL and then any currency
 
+
+
+ALL THIS INFO ABOVE IS RELEVANT TO THIS LAB
+
+Source - DR. CALLAHAN AGAIN
+https://www.youtube.com/watch?v=t3UjWbh7mqI&t=416s
+https://www.mongodb.com/what-is-mongodb
+https://www.geeksforgeeks.org/what-is-mongodb-working-and-features/
+
+CREATIVITY IS THE SAME AS ABOVE
+SAME WITH LOCAL HOST
+
+
+LAB 5 OPINION -
+
+This lab was such a pain in the buttt omgggggg, I started off completely confused and didn't know where to start and then I started and did it all wrong.
+Which I didn't know I was doing anything wrong up until I went to see Dr. Callahan, which he helped me out alot because it got me on track to understand what was going on.
+Once I figured out what the heck I was supposed to do and complete I restarted the whole thing and started from lab 3 and 4. From there I got my collections and everything connected and then I had to work on the submit, save, delete, history and edit buttons which I finally completed. Overall, this lab sucked in my opinion but the only reason is because I had no idea what was going on in the beginning. Once I sat down and got help and figured it out I ended up doing good and getting it done quick.
+
  

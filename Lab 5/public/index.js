@@ -58,7 +58,6 @@ async function fetchData(stockId, currency) {
     }
  }
  
- 
  document.getElementById('stockForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -69,39 +68,40 @@ async function fetchData(stockId, currency) {
             saveStockInfo();
         });
     });
- 
+
     const stockSymbols = document.getElementById('stockIdInput').value.split(',').map(symbol => symbol.trim());
     const selectedCurrency = document.getElementById('currency-select').value;
- 
+
     // Example: Check if at least one stock symbol is entered
     if (stockSymbols.length === 0) {
-       alert('Please enter at least one stock symbol.');
-       return;
+        alert('Please enter at least one stock symbol.');
+        return;
     }
- 
+
     // Example: Make a request to fetch data for multiple stocks
     fetch(`/stocks?symbols=${stockSymbols.join(',')}&c=${selectedCurrency}`)
-       .then(response => {
-          if (!response.ok) {
-             throw new Error('Failed to fetch stock data.');
-          }
-          return response.json();
-       })
-       .then(stockDataArray => {
-          // Example: Display stock data as needed
-          stockDataArray.forEach(stockData => {
-             console.log(`Stock Symbol: ${stockData.symbol}`);
-             console.log(`Last Price: ${stockData.last}`);
-             console.log(`Mid Price: ${stockData.mid}`);
-             console.log(`Ask Price: ${stockData.ask}`);
-             console.log('---');
-          });
-       })
-       .catch(error => {
-          console.error('Error fetching stock data:', error);
-       });
- });
- 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch stock data.');
+            }
+            return response.json();
+        })
+        .then(stockDataArray => {
+            // Example: Display stock data as needed
+            stockDataArray.forEach(stockData => {
+                console.log(`MongoDB ID: ${stockData.id}`); // Display MongoDB ID
+                console.log(`Stock Symbol: ${stockData.symbol}`);
+                console.log(`Last Price: ${stockData.last}`);
+                console.log(`Mid Price: ${stockData.mid}`);
+                console.log(`Ask Price: ${stockData.ask}`);
+                console.log('---');
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching stock data:', error);
+        });
+});
+
  
  const form = document.getElementById('stockForm');
  form.addEventListener('submit', handleSubmit);
@@ -109,62 +109,107 @@ async function fetchData(stockId, currency) {
  
 
  async function saveStockInfo() {
-   try {
-       // Get the displayed stock information from the HTML
-       const symbol = document.querySelector('#stock-info p:nth-child(1)').textContent.split(': ')[1];
-       const lastPrice = document.querySelector('#stock-info p:nth-child(2)').textContent.split(': ')[1];
-       const midPrice = document.querySelector('#stock-info p:nth-child(3)').textContent.split(': ')[1];
-       const askPrice = document.querySelector('#stock-info p:nth-child(4)').textContent.split(': ')[1];
-
-       // Create the data object to be sent to the server
-       const stockInfo = {
-           symbol: symbol,
-           lastPrice: lastPrice,
-           midPrice: midPrice,
-           askPrice: askPrice
-       };
-
-       // Send the data to the server for saving
-       await sendDataToServer(stockInfo);
-
-       // Display the saved stock information at the bottom of the page
-       displaySavedStockInfo(symbol, lastPrice, midPrice, askPrice);
-   } catch (error) {
-       console.error('Error saving stock information:', error);
-       alert('Sucessfully Saved');
-   }
+    try {
+        // Get the displayed stock information from the HTML
+        const mongoId = document.querySelector('#stock-info p:nth-child(1)').textContent.split(': ')[1]; // Assuming MongoDB ID is the first paragraph
+        const symbol = document.querySelector('#stock-info p:nth-child(2)').textContent.split(': ')[1];
+        const lastPrice = document.querySelector('#stock-info p:nth-child(3)').textContent.split(': ')[1];
+        const midPrice = document.querySelector('#stock-info p:nth-child(4)').textContent.split(': ')[1];
+        const askPrice = document.querySelector('#stock-info p:nth-child(5)').textContent.split(': ')[1];
+ 
+        // Create the data object to be sent to the server
+        const stockInfo = {
+            mongoId: mongoId, // Include MongoDB ID in the data object
+            symbol: symbol,
+            lastPrice: lastPrice,
+            midPrice: midPrice,
+            askPrice: askPrice
+        };
+ 
+        // Send the data to the server for saving
+        await sendDataToServer(stockInfo);
+ 
+        // Display the saved stock information at the bottom of the page
+        displaySavedStockInfo(mongoId, symbol, lastPrice, midPrice, askPrice);
+    } catch (error) {
+        console.error('Error saving stock information:', error);
+        alert('Failed to save stock information');
+    }
+ }
+ 
+ function displaySavedStockInfo(mongoId, symbol, lastPrice, midPrice, askPrice) {
+    const savedStockContainer = document.getElementById('saved-stock-container');
+ 
+    // Create elements to display saved stock information
+    const savedStockDiv = document.createElement('div');
+    savedStockDiv.classList.add('saved-stock');
+    savedStockDiv.dataset.mongoId = mongoId; // Add dataset attribute to store MongoDB ID
+ 
+    const infoContainer = document.createElement('div');
+    infoContainer.classList.add('info-container');
+ 
+    const mongoIdParagraph = document.createElement('p');
+    mongoIdParagraph.textContent = `MongoDB ID: ${mongoId}`;
+    const symbolParagraph = document.createElement('p');
+    symbolParagraph.textContent = `Symbol: ${symbol}`;
+    const lastPriceParagraph = document.createElement('p');
+    lastPriceParagraph.textContent = `Last Price: ${lastPrice}`;
+    const midPriceParagraph = document.createElement('p');
+    midPriceParagraph.textContent = `Mid Price: ${midPrice}`;
+    const askPriceParagraph = document.createElement('p');
+    askPriceParagraph.textContent = `Ask Price: ${askPrice}`;
+ 
+    // Create edit button
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.addEventListener('click', () => {
+        editStockInfo(mongoId, symbol, lastPrice, midPrice, askPrice); // Pass MongoDB ID and other details to the edit function
+    });
+ 
+    // Append stock info elements to infoContainer
+    infoContainer.appendChild(mongoIdParagraph);
+    infoContainer.appendChild(symbolParagraph);
+    infoContainer.appendChild(lastPriceParagraph);
+    infoContainer.appendChild(midPriceParagraph);
+    infoContainer.appendChild(askPriceParagraph);
+ 
+    // Append infoContainer and editButton to savedStockDiv
+    savedStockDiv.appendChild(infoContainer);
+    savedStockDiv.appendChild(editButton);
+ 
+    // Append savedStockDiv to savedStockContainer
+    savedStockContainer.appendChild(savedStockDiv);
+ 
+    // Add a break element for separation
+    savedStockContainer.appendChild(document.createElement('hr'));
 }
 
-function displaySavedStockInfo(symbol, lastPrice, midPrice, askPrice) {
-   const savedStockContainer = document.getElementById('saved-stock-container');
 
-   // Create elements to display saved stock information
-   const savedStockDiv = document.createElement('div');
-   savedStockDiv.classList.add('saved-stock');
-
-   const symbolParagraph = document.createElement('p');
-   symbolParagraph.textContent = `Symbol: ${symbol}`;
-   const lastPriceParagraph = document.createElement('p');
-   lastPriceParagraph.textContent = `Last Price: ${lastPrice}`;
-   const midPriceParagraph = document.createElement('p');
-   midPriceParagraph.textContent = `Mid Price: ${midPrice}`;
-   const askPriceParagraph = document.createElement('p');
-   askPriceParagraph.textContent = `Ask Price: ${askPrice}`;
-
-   // Append elements to savedStockDiv
-   savedStockDiv.appendChild(symbolParagraph);
-   savedStockDiv.appendChild(lastPriceParagraph);
-   savedStockDiv.appendChild(midPriceParagraph);
-   savedStockDiv.appendChild(askPriceParagraph);
-
-   // Append savedStockDiv to savedStockContainer
-   savedStockContainer.appendChild(savedStockDiv);
-
-   // Add a break element for separation
-   savedStockContainer.appendChild(document.createElement('hr'));
+function editStockInfo(mongoId, symbol, lastPrice, midPrice, askPrice) {
+    // Prompt users to enter new information or provide a form for editing
+    const newMongoId = prompt('Enter new MongoDB ID:', mongoId);
+    const newSymbol = prompt('Enter new symbol:', symbol);
+    const newLastPrice = prompt('Enter new last price:', lastPrice);
+    const newMidPrice = prompt('Enter new mid price:', midPrice);
+    const newAskPrice = prompt('Enter new ask price:', askPrice);
+    
+    // Find the saved stock div by its MongoDB ID
+    const savedStockDiv = document.querySelector(`.saved-stock[data-mongo-id="${mongoId}"]`);
+    if (savedStockDiv) {
+        // Update the UI with the edited information
+        savedStockDiv.dataset.mongoId = newMongoId; // Update the MongoDB ID in the dataset
+        savedStockDiv.querySelector('p:nth-of-type(1)').textContent = `MongoDB ID: ${newMongoId}`;
+        savedStockDiv.querySelector('p:nth-of-type(2)').textContent = `Symbol: ${newSymbol}`;
+        savedStockDiv.querySelector('p:nth-of-type(3)').textContent = `Last Price: ${newLastPrice}`;
+        savedStockDiv.querySelector('p:nth-of-type(4)').textContent = `Mid Price: ${newMidPrice}`;
+        savedStockDiv.querySelector('p:nth-of-type(5)').textContent = `Ask Price: ${newAskPrice}`;
+    } else {
+        console.error('Saved stock entry not found');
+    }
 }
 
 
+ 
 
 
 
@@ -357,48 +402,53 @@ function displayHistoricalData() {
    });
 });
 
-// Event listener for form submission
 document.getElementById('stockForm').addEventListener('submit', async function(event) {
-   event.preventDefault();
+    event.preventDefault();
 
-   try {
-       // Get the selected currency
-       const currency = document.getElementById('currency-select').value;
+    try {
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
 
-       // Fetch data from the server based on the ID range (1-100) and selected currency
-       const response = await fetch(`/fetchDataByIdRange?currency=${currency}`);
-       const data = await response.json();
+        // Get the selected currency
+        const currency = document.getElementById('currency-select').value;
 
-       // Find the entry for Symbol: AAPL
-       let aaplEntry = null;
-       for (const entry of data) {
-           if (entry.symbol === 'AAPL') {
-               aaplEntry = entry;
-               break; // Break out of the loop after finding the AAPL entry
-           }
-       }
+        // Fetch data from the server based on the random number and selected currency
+        const response = await fetch(`/fetchDataByIdRange?currency=${currency}&randomNumber=${randomNumber}`);
+        const data = await response.json();
 
-       if (aaplEntry) {
-           // Update the HTML content with the retrieved AAPL data
-           document.getElementById('stock-info').innerHTML = `
-               <p>Symbol: ${aaplEntry.symbol}</p>
-               <p>Last Price: ${aaplEntry.lastPrice}</p>
-               <p>Mid Price: ${aaplEntry.midPrice}</p>
-               <p>Ask Price: ${aaplEntry.askPrice}</p>
-           `;
-       } else {
-           // Display a message if AAPL entry is not found
-           document.getElementById('stock-info').innerText = 'AAPL data not found';
-       }
+        // Find the entry for Symbol: AAPL
+        let aaplEntry = null;
+        for (const entry of data) {
+            if (entry.symbol === 'AAPL') {
+                aaplEntry = entry;
+                break; // Break out of the loop after finding the AAPL entry
+            }
+        }
 
-       // Clear any previous error messages
-       document.getElementById('error-message').innerText = '';
-   } catch (error) {
-       console.error('Error fetching stock data:', error);
-       // Display error message on the page
-       document.getElementById('error-message').innerText = 'Failed to fetch stock data';
-   }
+        if (aaplEntry) {
+            // Update the HTML content with the retrieved AAPL data including the generated MongoDB ID
+            document.getElementById('stock-info').innerHTML = `
+                <p>MongoDB ID: ${randomNumber}</p>
+                <p>Symbol: ${aaplEntry.symbol}</p>
+                <p>Last Price: ${aaplEntry.lastPrice}</p>
+                <p>Mid Price: ${aaplEntry.midPrice}</p>
+                <p>Ask Price: ${aaplEntry.askPrice}</p>
+            `;
+        } else {
+            // Display a message if AAPL entry is not found
+            document.getElementById('stock-info').innerText = 'AAPL data not found';
+        }
+
+        // Clear any previous error messages
+        document.getElementById('error-message').innerText = '';
+    } catch (error) {
+        console.error('Error fetching stock data:', error);
+        // Display error message on the page
+        document.getElementById('error-message').innerText = 'Failed to fetch stock data';
+    }
 });
+
+ 
 
 
 
@@ -426,108 +476,4 @@ document.getElementById('delete-button').addEventListener('click', async () => {
 });
 
 
-// Event listener for the "Edit" button
-document.getElementById('edit-button').addEventListener('click', initiateEditProcess);
 
-// Function to initiate the edit process
-async function initiateEditProcess() {
-   try {
-       // Fetch available saved stock data from the server
-       const response = await fetch('/getSavedStockData');
-       const savedStockData = await response.json();
-
-       console.log(savedStockData); // Log the response to check if data is retrieved
-
-       // Check if any data is available for editing
-       if (savedStockData && savedStockData.length > 0) {
-           // Prompt the user to select a specific saved stock entry to edit
-           const selectedEntry = prompt('Choose a saved stock entry to edit:\n' + savedStockData.map(entry => entry.symbol).join('\n'));
-           if (selectedEntry) {
-               // Find the selected entry in the saved stock data
-               const selectedStock = savedStockData.find(entry => entry.symbol === selectedEntry);
-               if (selectedStock) {
-                   // Prompt the user to edit the stock information
-                   const newSymbol = prompt('Enter new symbol:');
-                   const newLastPrice = prompt('Enter new last price:');
-                   const newMidPrice = prompt('Enter new mid price:');
-                   const newAskPrice = prompt('Enter new ask price:');
-                   if (newSymbol && newLastPrice && newMidPrice && newAskPrice) {
-                       // Update the selected stock entry with the new information
-                       selectedStock.symbol = newSymbol;
-                       selectedStock.lastPrice = newLastPrice;
-                       selectedStock.midPrice = newMidPrice;
-                       selectedStock.askPrice = newAskPrice;
-
-                       // Send a request to the server to update the stock information
-                       await updateStockData(selectedStock);
-
-                       // Refresh the UI to display the updated information
-                       refreshSavedStockUI(savedStockData);
-                   } else {
-                       alert('Invalid input. Please provide all required fields.');
-                   }
-               } else {
-                   alert('Selected stock entry not found.');
-               }
-           } else {
-               alert('Edit process canceled.');
-           }
-       } else {
-           alert('No saved stock data available for editing.');
-       }
-   } catch (error) {
-       console.error('Error initiating edit process:', error);
-       alert('Failed to initiate edit process');
-   }
-}
-
-
-// Function to update stock data on the server
-async function updateStockData(updatedStockData) {
-    try {
-        const response = await fetch('/updateSavedStockData', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedStockData),
-        });
-        if (!response.ok) {
-            throw new Error('Failed to update stock data');
-        }
-        // Handle success response
-        alert('Stock data updated successfully');
-    } catch (error) {
-        console.error('Error updating stock data:', error);
-        alert('Failed to update stock data');
-    }
-}
-
-// Function to refresh the saved stock UI after editing
-function refreshSavedStockUI(savedStockData) {
-    const savedStockContainer = document.getElementById('saved-stock-container');
-    // Clear previous content
-    savedStockContainer.innerHTML = '';
-    // Render the updated stock data
-    savedStockData.forEach(stock => {
-        const savedStockDiv = document.createElement('div');
-        savedStockDiv.classList.add('saved-stock');
-
-        const symbolParagraph = document.createElement('p');
-        symbolParagraph.textContent = `Symbol: ${stock.symbol}`;
-        const lastPriceParagraph = document.createElement('p');
-        lastPriceParagraph.textContent = `Last Price: ${stock.lastPrice}`;
-        const midPriceParagraph = document.createElement('p');
-        midPriceParagraph.textContent = `Mid Price: ${stock.midPrice}`;
-        const askPriceParagraph = document.createElement('p');
-        askPriceParagraph.textContent = `Ask Price: ${stock.askPrice}`;
-
-        savedStockDiv.appendChild(symbolParagraph);
-        savedStockDiv.appendChild(lastPriceParagraph);
-        savedStockDiv.appendChild(midPriceParagraph);
-        savedStockDiv.appendChild(askPriceParagraph);
-
-        savedStockContainer.appendChild(savedStockDiv);
-        savedStockContainer.appendChild(document.createElement('hr'));
-    });
-}
