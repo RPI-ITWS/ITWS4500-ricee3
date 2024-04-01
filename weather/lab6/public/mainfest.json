@@ -1,0 +1,25 @@
+{
+    "short_name": "React App",
+    "name": "Create React App Sample",
+    "icons": [
+      {
+        "src": "favicon.ico",
+        "sizes": "64x64 32x32 24x24 16x16",
+        "type": "image/x-icon"
+      },
+      {
+        "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.marefa.org%2Fw%2Fimages%2Fb%2Fb7%2FSergey_Stepanov_-_Epic_Sax_Guy_-_May_28%252C_2010.jpg&f=1&nofb=1&ipt=399d0be58543d82137b0c8fea2b1b6a0d939c0027b2aff8c5431f775e6077449&ipo=images",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "logo512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }

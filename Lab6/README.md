@@ -38,8 +38,7 @@ SAME WITH LOCAL HOST
 LAB 5 OPINION -
 
 This lab was such a pain in the buttt omgggggg, I started off completely confused and didn't know where to start and then I started and did it all wrong.
-Which I didn't know I was doing anything wrong up until I went to see Dr. Callahan, which he helped me out alot because it got me on track to understand what was going on.
-Once I figured out what the heck I was supposed to do and complete I restarted the whole thing and started from lab 3 and 4. From there I got my collections and everything connected and then I had to work on the submit, save, delete, history and edit buttons which I finally completed. Overall, this lab sucked in my opinion but the only reason is because I had no idea what was going on in the beginning. Once I sat down and got help and figured it out I ended up doing good and getting it done quick.
+Which I didn't know I was doing anything wrong up until I went to see Dr. Callahan, which he helped me out alot because it got me on track to understand what was going on.Once I figured out what the heck I was supposed to do and complete I restarted the whole thing and started from lab 3 and 4. From there I got my collections and everything connected and then I had to work on the submit, save, delete, history and edit buttons which I finally completed. Overall, this lab sucked in my opinion but the only reason is because I had no idea what was going on in the beginning. Once I sat down and got help and figured it out I ended up doing good and getting it done quick.
 
  :)
 
@@ -47,3 +46,13 @@ Once I figured out what the heck I was supposed to do and complete I restarted t
 
 
  Lab 6 OPINION -
+
+ TBH I hate react I think it is so annoying because I didnt everything and everything works and is connected but It's not react code format so now I have to like rework it into making it react code which is annoying and it's all because it wont display on my VM. I pretty much did the lab all in one day which was Monday and Tuesday because I was sick all weekend so I asked Dr. Callahan for an extension to wednesday, which he granted. So now what I need to do is make the react work on my VM. But overall this lab wasn't awful I think connecting to MONGODB is easy and easy to use, but it's the react part that I am not a fan of. Also my creativity is the Dark and Light mode aspect so when you click the button it will change to light and dark Mode.
+
+ API 1 - https://api.weatherbit.io/v2.0/forecast/hourly?city=Troy,NY&key=732043dbf64e4c93a019d62893a7eb86
+ API 2 - https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/troy%20new%20york?unitGroup=us&key=NSHND2XKQ4HNZF7JPDAQMLZWH&contentType=json
+ API 3 - https://api.openweathermap.org/data/2.5/forecast?lat=42.7284&lon=-73.6918&appid=7d115b9c429e498c2367ff001ed46451
+
+
+
+!!!!!CALLAHAN GAVE ME AN EXTENSION TILL WEDNESDAY!!!!!
