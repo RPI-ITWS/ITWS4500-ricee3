@@ -46,6 +46,9 @@ Which I didn't know I was doing anything wrong up until I went to see Dr. Callah
 
 
  Lab 6 OPINION -
+**NOTE**
+DATES ARE DISPLAYED AS 2024-04-13T02:00:00 AND 2024-04-10 12:00:00
+
 
  TBH I hate react I think it is so annoying because I didnt everything and everything works and is connected but It's not react code format so now I have to like rework it into making it react code which is annoying and it's all because it wont display on my VM. I pretty much did the lab all in one day which was Monday and Tuesday because I was sick all weekend so I asked Dr. Callahan for an extension to wednesday, which he granted. So now what I need to do is make the react work on my VM. But overall this lab wasn't awful I think connecting to MONGODB is easy and easy to use, but it's the react part that I am not a fan of. Also my creativity is the Dark and Light mode aspect so when you click the button it will change to light and dark Mode.
 
@@ -55,4 +58,4 @@ Which I didn't know I was doing anything wrong up until I went to see Dr. Callah
 
 
 
-!!!!!CALLAHAN GAVE ME AN EXTENSION TILL WEDNESDAY!!!!!
+!!!!!DR.CALLAHAN GAVE ME AN EXTENSION TILL WEDNESDAY!!!!!

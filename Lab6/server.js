@@ -1,3 +1,5 @@
+// server.js
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -81,13 +83,39 @@ app.get('/fetchHistoricalWeather', async (req, res) => {
     }
 });
 
-// Endpoint to delete weather data by date
-app.delete('/deleteWeather/:date', async (req, res) => {
+
+// POST new weather data
+app.post('/weather', async (req, res) => {
     try {
-        const date = req.params.date;
-        // Delete weather data from MongoDB based on the provided date
-        const result = await WeatherModel.deleteOne({ date });
-        if (result.deletedCount === 0) {
+        const weatherData = req.body;
+        const newWeatherData = new WeatherModel(weatherData);
+        await newWeatherData.save();
+        res.status(201).json(newWeatherData);
+    } catch (error) {
+        console.error('Error adding weather data:', error);
+        res.status(500).json({ error: 'Failed to add weather data', message: error.message });
+    }
+});
+
+// PUT update weather data by ID
+app.put('/weather/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        await WeatherModel.findByIdAndUpdate(id, updatedData);
+        res.json({ message: 'Weather data updated successfully' });
+    } catch (error) {
+        console.error('Error updating weather data:', error);
+        res.status(500).json({ error: 'Failed to update weather data', message: error.message });
+    }
+});
+
+// DELETE weather data by ID
+app.delete('/weather/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await WeatherModel.findByIdAndDelete(id);
+        if (!result) {
             return res.status(404).json({ error: 'Weather data not found' });
         }
         res.json({ message: 'Weather data deleted successfully' });
@@ -96,23 +124,3 @@ app.delete('/deleteWeather/:date', async (req, res) => {
         res.status(500).json({ error: 'Failed to delete weather data', message: error.message });
     }
 });
-
-
-
-// Endpoint to handle saving weather information
-app.post('/weather', async (req, res) => {
-    try {
-        const weatherData = req.body;
-
-        // Save the weather data to MongoDB
-        const newWeatherData = new WeatherModel(weatherData);
-        await newWeatherData.save();
-
-        // Respond with a success status and the saved data
-        res.status(201).json(newWeatherData);
-    } catch (error) {
-        console.error('Error saving weather data:', error);
-        res.status(500).json({ error: 'Failed to save weather data', message: error.message });
-    }
-});
-
