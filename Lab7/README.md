@@ -74,7 +74,7 @@ LAB 7 OPINION -
 VM - https://ricee3.eastus.cloudapp.azure.com or https://ricee3.eastus.cloudapp.azure.com/page3.html
 and use  node --env-file=.env server.js
 
-Overall, I thought this lab was pretty easy compared to the last two that we have been assigned. I didn't have any struggles with this lab and I got it done and completed pretty quickly. Although my bar graph kinda sucks because its super small and the info on the x-axis is small and isn't readable. I added the line graph and the scatter plot because those were easier to read and see. Also the bar chart I couldn't make it better because the page was gonna be crazy looking and it was going to be bad. Overall, this lab was laid back and pretty easy.
+Overall, I thought this lab was pretty easy compared to the last two that we have been assigned. I didn't have any struggles with this lab and I got it done and completed pretty quickly. Although my bar graph kinda sucks because its super small and the info on the x-axis is small and isn't readable. I added the line graph and the scatter plot because those were easier to read and see. Also the bar chart I couldn't make it better because the page was gonna be crazy looking and it was going to be bad. Overall, this lab was laid back and pretty easy. Getting it on the VM might be a struggle.
 
 
 Helpful Links -
