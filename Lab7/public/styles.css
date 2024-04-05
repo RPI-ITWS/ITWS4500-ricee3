@@ -1,0 +1,269 @@
+
+/* styles.css */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f8f8;
+}
+/* Header Styles */
+header {
+  background-color: #592342;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+/* Main Content Styles */
+main {
+  padding: 20px;
+  background-color: #f0f0f0;
+  margin-top: 20px;
+  min-height: calc(100vh - 180px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Stock Information Styles */
+#weather-info {
+  margin-bottom: 20px;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+
+
+.dark-mode #weather-info{
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff; 
+  margin: 10px;
+}
+
+#saved-weather-container {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+
+#history-list {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Add styles for saved-stock-container in dark mode */
+.dark-mode #saved-weather-container {
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff;
+  /* Set text color to white */
+  margin: 10px;
+}
+
+/* Add styles for saved-stock-container in dark mode */
+.dark-mode #history-list {
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff;
+  /* Set text color to white */
+  margin: 10px;
+}
+
+.edit-notification {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Add styles for the edit notification container in dark mode */
+.dark-mode .edit-notification {
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff; /* Set text color to white */
+  margin: 10px;
+  padding: 10px; /* Add padding for better readability */
+}
+
+/* Add styles for text color within the edit notification container in dark mode */
+.dark-mode .edit-notification p,
+.dark-mode .edit-notification label {
+  color: #fff; /* Set text color to white */
+}
+
+/* Add styles for text color within the weather information container in dark mode */
+.dark-mode #weather-info p {
+  color: #fff; /* Set text color to white */
+}
+
+
+
+
+/* Form Styles */
+#stockForm {
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+}
+input[type="text"], select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  background-color: #a81f38;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #4d0f1e;
+}
+/* Special Buttons Styles */
+.save-button, .edit-button, .delete-button, .history-button {
+  display: inline-block;
+  margin-right: 10px;
+}
+/* History List Styles */
+#history-list {
+  margin-top: 10px;
+  list-style: none;
+}
+#history-list li {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  main {
+      padding: 15px;
+ }
+  #stock-info, #stockForm {
+      padding: 15px;
+ }
+  input[type="text"], select {
+      width: 100%;
+ }
+}
+#currency-select2{
+  margin-top: 20px;
+}
+/* Add styles for dark mode */
+.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+.dark-mode header {
+  background-color: #111;
+  margin: 10px;
+}
+.dark-mode #currency-select2{
+  color: white;
+}
+.dark-mode #StockId{
+  color: white;
+}
+.dark-mode main {
+  background-color: #444;
+  color: white;
+  margin: 10px;
+}
+.dark-mode #stock-info, .dark-mode #stockForm {
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff;
+ /* Set text color to white */
+  margin: 10px;
+}
+.dark-mode button {
+  background-color: #a81f38;
+  color: #fff;
+ /* Set text color to white */
+}
+.dark-mode button:hover {
+  background-color: #4d0f1e;
+}
+.dark-mode #history-list li {
+  background-color: #555;
+  border: 1px solid #777;
+  color: #fff;
+ /* Set text color to white */
+}
+
+
+.saved-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.info-container {
+  flex: 1;
+}
+
+.saved-stock button {
+  padding: 5px 10px;
+  background-color: #a81f38;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saved-stock button:hover {
+  background-color: #4d0f1e;
+}
+
+.dark-mode #enterW{
+  color: white;
+}
+.dark-mode #weather-info{
+  color: black;
+}
+
+
+  .saved-weather + .saved-weather {
+    border-top: 1px solid #ccc;
+    margin-top: 10px; /* Adjust as needed */
+    padding-top: 10px; /* Adjust as needed */
+  }
+
+
+  .history-weather + .history-weather {
+    border-top: 1px solid #ccc;
+    margin-top: 10px; /* Adjust as needed */
+    padding-top: 10px; /* Adjust as needed */
+  }
+
+
+

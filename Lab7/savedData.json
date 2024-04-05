@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "stock": "AAPL",
+      "currency": "DKK",
+      "time": "2/12/2024, 3:31:19 PM",
+      "last": 2917605.96
+    },
+    {
+      "stock": "XYZ",
+      "currency": "USD",
+      "time": "2/12/2024, 3:45:25 PM",
+      "last": 100.23
+    },
+    {
+      "stock": "AAPL",
+      "currency": "AUD",
+      "time": "2/12/2024, 4:00:12 PM",
+      "last": 406.87657826625
+    },
+    {
+      "stock": "AAPL",
+      "currency": "USD",
+      "time": "3/21/2024, 5:38:51 PM",
+      "last": [
+        171.37
+      ]
+    }
+  ]
+}
