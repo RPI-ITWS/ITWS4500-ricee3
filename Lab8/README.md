@@ -85,8 +85,8 @@ https://observablehq.com/@philippkoytek/exercises-with-d3-bar-chart-and-scatter-
 
 LAB 8 -
 
-VM - https://ricee3.eastus.cloudapp.azure.com 
-use - node --env-file=.env server.js
+VM - https://ricee3.eastus.cloudapp.azure.com or https://ricee3.eastus.cloudapp.azure.com/index.html
+use - npm start
 
 Overall for lab 8 I wanted to do something fun and different from the labs we did this semster. We didn't get a chance to actually have a fun lab were we created a game or anything because we were building on the previous labs. So for this lab I made 4 different games and I added a area were you can play a playlist and pick a specific song of your choice. I used node from this year and I added other elements that we've learned throughout web sys and web sci. This was a pretty laid back lab because it was pretty much a free forall but I did enjoy it and I hope you like my games. 
 
