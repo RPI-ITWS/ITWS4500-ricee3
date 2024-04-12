@@ -1,0 +1,58 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ecdeff80; /* Light purple background */
+}
+
+.container {
+    max-width: 600px; /* Adjust according to your preference */
+    margin: 0 auto; /* Center the game horizontally */
+    text-align: center;
+    background-color: rgba(39, 0, 61, 0.643); /* Semi-transparent dark purple background */
+    padding: 40px; /* Increase padding for more space */
+    border-radius: 10px; /* Increase border-radius for rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increase box-shadow for a more prominent effect */
+    color: white; /* White text color */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px; /* Increase margin-bottom for input */
+    box-sizing: border-box;
+    background-color: transparent; /* Make input background transparent */
+    border: none; /* Remove input border */
+    border-bottom: 2px solid white; /* Add white bottom border */
+    color: white; /* White text color */
+}
+
+button {
+    background-color: rgb(244, 225, 255); /* Light pink button background */
+    color: rgb(0, 0, 0); /* Black text color */
+    border: none;
+    padding: 15px 20px; /* Increase padding for button */
+    margin-bottom: 10px; /* Increase margin-bottom for button */
+    cursor: pointer;
+    border-radius: 5px; /* Add border radius for rounded corners */
+}
+
+button:hover {
+    background-color:rgb(202, 171, 220); /* Darker pink button background on hover */
+}
+
+/* Space out question */
+#question {
+    margin-bottom: 15px; /* Increase margin-bottom for question */
+}
+
+/* Space out options horizontally */
+#options {
+    margin-bottom: 15px; 
+}
+
+#options button {
+    display: inline-block; /* Display buttons inline */
+    margin-right: 10px; /* Add margin between buttons */
+}
+
+

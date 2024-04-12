@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!-- Mute/Unmute Button -->
+<button id="muteButton" class="muteButton">Mute/Unmute</button>
+
+<!-- Spotify Player Toggle Button -->
+<button id="spotifyToggle" class="spotifyToggle">Show/Hide Spotify</button>
+
+<!-- Spotify Embed Player -->
+<div id="spotifyContainer" class="spotifyContainer draggable">
+    <iframe id="spotifyPlayer" src="https://open.spotify.com/embed/playlist/1Cgey68pUlQGsCPI2wJuxr" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+
+
+
+
+    <!-- Game Hub tab content -->
+    <div id="hub" class="tabcontent">
+        <!-- Include the content of all the games here -->
+        <!-- Guess the Number -->
+        <div id="guess" class="tabcontent">
+            <!-- Include the content of the Guess the Number game here -->
+            <iframe src="guess.html" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
+
+        <!-- Rock, Paper, Scissors -->
+        <div id="rps" class="tabcontent">
+            <!-- Include the content of the Rock, Paper, Scissors game here -->
+            <iframe src="rps.html" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
+
+        <!-- Word Guessing Game -->
+        <div id="word_guess" class="tabcontent">
+            <!-- Include the content of the Word Guessing Game here -->
+            <iframe src="word_guess.html" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
+
+        <!-- Trivia Quiz -->
+        <div id="trivia_quiz" class="tabcontent">
+            <!-- Include the content of the Trivia Quiz game here -->
+            <iframe src="trivia_quiz.html" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

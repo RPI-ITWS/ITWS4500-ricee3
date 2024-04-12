@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ecdeff80;
+}
+
+.container {
+    max-width: 600px; /* Increase the max-width for a bigger game */
+    margin: 0 auto; /* Center the game horizontally */
+    text-align: center;
+    background-color: rgba(39, 0, 61, 0.643);
+    padding: 40px; /* Increase padding for more space */
+    border-radius: 10px; /* Increase border-radius for rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increase box-shadow for a more prominent effect */
+    color: white;
+}
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: rgb(244, 225, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:rgb(202, 171, 220);
+}
+
+/* Mute/Unmute Button */
+.muteButton {
+    background-color: #3f197c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Add margin for spacing */
+}
+
+.muteButton:hover {
+    background-color: #624296;
+}
+/* Spotify Player Container */
+.spotifyContainer {
+    display: none; /* Hide the Spotify player by default */
+    position: fixed;
+    top: 0;
+    left: 50%; /* Center the container horizontally */
+    transform: translateX(-50%); /* Adjust to center horizontally */
+    width: 300px; /* Set width */
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure the player is above other content */
+}
+
+/* Spotify Player Toggle Button */
+.spotifyToggle {
+    background-color:#3f197c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+.spotifyToggle:hover {
+    background-color: #624296;
+}
+/* Draggable */
+.draggable {
+    cursor: grab;
+}
+
+.draggable:active {
+    cursor: grabbing;
+}
+

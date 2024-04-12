@@ -1,0 +1,28 @@
+{
+  "name": "lab6",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "elizabeth",
+  "license": "ISC",
+  "description": "creating our own apis",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "passport": "^0.7.0",
+    "passport-spotify": "^2.0.0",
+    "spotify-web-api-node": "^5.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ricee3"
+  },
+  "keywords": [
+    "rpi"
+  ]
+}
