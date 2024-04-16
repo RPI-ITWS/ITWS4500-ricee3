@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path'); // Import path module
-const fetch = require('node-fetch');
 
 const app = express();
 const port = 3000;
