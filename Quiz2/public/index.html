@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Quotes Lab</title>
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <header>
+         <h1>Quiz 2</h1>
+         <!-- Add onclick attribute to the button -->
+         <button id="modeToggle" onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+ 
+      </header>
+      <main>
+         <h2>Quote Info:</h2> 
+         <div id="quote-info">
+            <!-- Display quote information here -->
+            <p><b>ID:</b> <span id="id"></span></p>
+            <p><b>Author:</b> <span id="author"></span></p>
+            <p><b>Quote:</b> <span id="quote"></span></p>
+         </div>
+         <form id="quoteForm">
+            <!-- Form content goes here -->
+            <label for="idInput"><b>Enter ID:</b></label>
+            <input type="number" id="idInput" name="idInput" required>
+            <button type="submit">Submit</button>
+         </form>
+         <br>
+         <button id="save-button">Save</button>
+         <button id="delete-button">Delete Data</button>
+         <button id="history-button">History</button>
+         <br>
+         <br>
+   
+         <div id="saved-quote-container">
+            <!-- Saved quote information will be displayed here -->
+         </div>
+         <div id="history-list">
+            <!-- Historical quote information will be displayed here -->
+         </div>
+      </main>
+      <script src="index.js"></script>
+   </body>
+</html>
